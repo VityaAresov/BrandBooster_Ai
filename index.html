@@ -29,7 +29,9 @@
     body {
       margin: 0;
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(180deg, #f9fbff 0%, #f3f7ff 50%, #f9fbff 100%);
+      background: radial-gradient(circle at 20% 10%, rgba(56, 243, 145, 0.08), transparent 32%),
+                  radial-gradient(circle at 80% 0%, rgba(96, 112, 255, 0.08), transparent 30%),
+                  linear-gradient(180deg, #f9fbff 0%, #f3f7ff 55%, #f9fbff 100%);
       color: var(--text);
       line-height: 1.6;
       letter-spacing: -0.01em;
@@ -40,6 +42,12 @@
     ul { padding: 0; margin: 0; list-style: none; }
 
     .page { max-width: 1200px; margin: 0 auto; padding: 0 20px 64px; position: relative; }
+
+    @keyframes floaty {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
 
     header {
       position: sticky;
@@ -132,6 +140,7 @@
       border: 1px solid rgba(255,255,255,0.08);
       color: #e8f7ff;
       min-height: 360px;
+      animation: floaty 8s ease-in-out infinite;
     }
 
     .glass-tag { position: absolute; top: 18px; right: 18px; padding: 8px 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; backdrop-filter: blur(8px); font-weight: 700; }
@@ -152,7 +161,7 @@
     .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: rgba(56, 243, 145, 0.16); color: #8effc4; font-weight: 700; font-size: 13px; }
 
     .floating { position: absolute; inset: auto 12px 14px auto; display: flex; flex-direction: column; gap: 10px; }
-    .float-card { background: rgba(255,255,255,0.12); border-radius: 14px; padding: 12px; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.16); }
+    .float-card { background: rgba(255,255,255,0.12); border-radius: 14px; padding: 12px; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.16); animation: floaty 6s ease-in-out infinite alternate; }
 
     .section { margin: 48px 0; position: relative; }
     .section h2 { margin: 0 0 12px; font-size: 28px; letter-spacing: -0.02em; }
@@ -220,10 +229,15 @@
     .animate.visible { opacity: 1; transform: translateY(0); }
 
     .photo-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-    .photo-card { position: relative; overflow: hidden; border-radius: 18px; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow); min-height: 200px; }
+    .photo-card { position: relative; overflow: hidden; border-radius: 18px; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow); min-height: 200px; animation: floaty 7s ease-in-out infinite; }
     .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(1.05); }
     .photo-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(0,0,0,0.45)); color: #f8fbff; display: grid; align-content: end; padding: 14px; font-weight: 700; letter-spacing: -0.01em; }
     .photo-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(255,255,255,0.85); color: #0f172a; border-radius: 999px; font-weight: 700; margin-top: 6px; }
+
+    .moodboard { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+    .mood-tile { position: relative; border-radius: 16px; overflow: hidden; min-height: 140px; border: 1px solid rgba(226,232,240,0.9); box-shadow: var(--shadow); background-size: cover; background-position: center; filter: saturate(1.05); animation: floaty 9s ease-in-out infinite alternate; }
+    .mood-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.35) 100%); }
+    .mood-label { position: absolute; inset: auto 10px 10px 10px; color: #f8fbff; font-weight: 800; letter-spacing: -0.01em; }
   </style>
 </head>
 <body>
@@ -257,7 +271,7 @@
       <div class="hero-grid">
         <span class="eyebrow"><span class="spark"></span><span data-i18n="eyebrow">Real-time trend crew: AI + humans</span></span>
         <h1 class="headline" data-i18n="headline">Get viral video ideas every week. No SMM needed.</h1>
-        <p class="subtitle" data-i18n="subtitle">Monthly subscription that sends ready-to-film trends from AI + real producers.</p>
+        <p class="subtitle" data-i18n="subtitle">AI + producers drop ready-to-film trends on a monthly subscription.</p>
 
         <div class="chips">
           <span class="chip" data-i18n="chip1">Subscription service</span>
@@ -354,7 +368,7 @@
 
     <section class="section animate" id="visuals">
       <h2 data-i18n="visualsTitle">What the drops look like</h2>
-      <p class="lead" data-i18n="visualsLead">Real creative snapshots to keep it tangible — minimal text, more pictures.</p>
+      <p class="lead" data-i18n="visualsLead">Real snapshots. Minimal text. See the ideas before you subscribe.</p>
       <div class="photo-grid">
         <div class="photo-card">
           <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1200&q=80" alt="Creator reviewing trend ideas" loading="lazy" />
@@ -378,49 +392,63 @@
           </div>
         </div>
       </div>
+      <div class="moodboard" aria-label="Trend moodboard">
+        <div class="mood-tile" style="background-image:url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80');">
+          <span class="mood-label" data-i18n="mood1">Trending audio picks</span>
+        </div>
+        <div class="mood-tile" style="background-image:url('https://images.unsplash.com/photo-1555431189-0fabf2667795?auto=format&fit=crop&w=900&q=80');">
+          <span class="mood-label" data-i18n="mood2">Shot lists in one glance</span>
+        </div>
+        <div class="mood-tile" style="background-image:url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80');">
+          <span class="mood-label" data-i18n="mood3">Quick captions & hooks</span>
+        </div>
+        <div class="mood-tile" style="background-image:url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80');">
+          <span class="mood-label" data-i18n="mood4">Platform-ready thumbs</span>
+        </div>
+      </div>
     </section>
 
     <section class="section animate" id="outcomes">
       <h2 data-i18n="outcomeTitle">Why creators subscribe</h2>
-      <p class="lead" data-i18n="outcomeLead">Outcomes, not jargon. Each card is a promise we deliver with AI + human curation.</p>
+      <p class="lead" data-i18n="outcomeLead">Fast wins, clear benefits. Short cards, zero fluff.</p>
       <div class="grid-2">
-        <div class="card" data-i18n="outcome1">Never run out of ideas — fresh trends dropped weekly or daily.</div>
-        <div class="card" data-i18n="outcome2">Post like a pro without hiring one — scripts, hooks, captions done.</div>
-        <div class="card" data-i18n="outcome3">Stay ahead of trends — we send what\'s about to pop, not what already did.</div>
-        <div class="card" data-i18n="outcome4">Shoot content in 20 minutes — record on your phone with step-by-step angles.</div>
+        <div class="card" data-i18n="outcome1">Ideas on tap — weekly or daily drops.</div>
+        <div class="card" data-i18n="outcome2">Post like a pro — scripts, hooks, captions.</div>
+        <div class="card" data-i18n="outcome3">Ahead of the wave — we send what will pop.</div>
+        <div class="card" data-i18n="outcome4">Shoot in 20 minutes — phone-ready angles.</div>
       </div>
     </section>
 
     <section class="section animate" id="who">
       <h2 data-i18n="whoTitle">Who this is for</h2>
-      <p class="lead" data-i18n="whoLead">Designed for people who want growth without a full SMM hire.</p>
+      <p class="lead" data-i18n="whoLead">For creators and small teams that want quick wins without an SMM hire.</p>
       <div class="grid-3 audience">
         <div class="card audience-card">
           <div class="step-icon">🎥</div>
           <strong data-i18n="who1">Beginner creators wanting structure</strong>
-          <p class="subtle" data-i18n="who1Desc">Clear hooks and scripts for your first consistent wins.</p>
+          <p class="subtle" data-i18n="who1Desc">Clear hooks to start posting weekly.</p>
         </div>
         <div class="card audience-card">
           <div class="step-icon">🏪</div>
           <strong data-i18n="who2">Small brands & shops</strong>
-          <p class="subtle" data-i18n="who2Desc">Weekly ideas that turn viewers into foot traffic and orders.</p>
+          <p class="subtle" data-i18n="who2Desc">Ideas that turn scrollers into buyers.</p>
         </div>
         <div class="card audience-card">
           <div class="step-icon">🧠</div>
           <strong data-i18n="who3">Founders & experts</strong>
-          <p class="subtle" data-i18n="who3Desc">Authority-building trend takes without an agency retainer.</p>
+          <p class="subtle" data-i18n="who3Desc">Authority shots without an agency.</p>
         </div>
         <div class="card audience-card">
           <div class="step-icon">📍</div>
           <strong data-i18n="who4">Local businesses</strong>
-          <p class="subtle" data-i18n="who4Desc">Simple phone-friendly shoots that highlight your services.</p>
+          <p class="subtle" data-i18n="who4Desc">Phone-friendly shoots that showcase services.</p>
         </div>
       </div>
     </section>
 
     <section class="section animate" id="examples">
       <h2 data-i18n="growthTitle">Growth examples</h2>
-      <p class="lead" data-i18n="growthLead">Simple before → after proof. What happens when you post the ideas we send.</p>
+      <p class="lead" data-i18n="growthLead">Before → after. Post the drops, watch the climb.</p>
       <div class="growth-panel">
         <div class="growth-row">
           <div class="growth-number"><span data-animate="3100">3.1k</span> → <span data-animate="24800">24.8k</span><small data-i18n="followers">Followers</small></div>
@@ -432,38 +460,38 @@
           <div class="growth-arrow">⬈</div>
           <div class="growth-number"><span data-animate="42000">42k</span> → <span data-animate="1100000">1.1M</span><small data-i18n="views">Monthly views</small></div>
         </div>
-        <div class="subtle" data-i18n="growthNote">Influencer niches: beauty, fitness, DTC. Results depend on effort and niche.</div>
+        <div class="subtle" data-i18n="growthNote">Beauty, fitness, DTC. Your effort sets the slope.</div>
       </div>
     </section>
 
     <section class="section animate" id="how">
       <h2 data-i18n="howTitle">How the subscription works</h2>
-      <p class="lead" data-i18n="howLead">From “I need ideas” to “I post with confidence” in five short steps.</p>
+      <p class="lead" data-i18n="howLead">Five quick beats from sign-up to posting.</p>
       <div class="steps">
         <div class="card step">
           <div class="step-icon">1</div>
           <strong data-i18n="step1Title">Subscribe</strong>
-          <p class="subtle" data-i18n="step1Desc">Pick weekly or daily trend drops tailored to your niche.</p>
+          <p class="subtle" data-i18n="step1Desc">Pick weekly or daily drops for your niche.</p>
         </div>
         <div class="card step">
           <div class="step-icon">2</div>
           <strong data-i18n="step2Title">AI scans, humans verify</strong>
-          <p class="subtle" data-i18n="step2Desc">We score viral potential, then producers hand-pick what feels right.</p>
+          <p class="subtle" data-i18n="step2Desc">AI scores, producers select.</p>
         </div>
         <div class="card step">
           <div class="step-icon">3</div>
           <strong data-i18n="step3Title">You receive ready-to-film ideas</strong>
-          <p class="subtle" data-i18n="step3Desc">Hooks, scripts, captions, thumbnails, and angles in one drop.</p>
+          <p class="subtle" data-i18n="step3Desc">Hooks, captions, thumbs, angles in one drop.</p>
         </div>
         <div class="card step">
           <div class="step-icon">4</div>
           <strong data-i18n="step4Title">Shoot on your phone</strong>
-          <p class="subtle" data-i18n="step4Desc">Record in 20 minutes. No studio, no gear, just clear direction.</p>
+          <p class="subtle" data-i18n="step4Desc">20-minute shoots on your phone.</p>
         </div>
         <div class="card step">
           <div class="step-icon">5</div>
           <strong data-i18n="step5Title">Grow consistently</strong>
-          <p class="subtle" data-i18n="step5Desc">We track performance and adjust the next drop based on wins.</p>
+          <p class="subtle" data-i18n="step5Desc">We tweak the next drop based on wins.</p>
         </div>
       </div>
     </section>
@@ -471,7 +499,7 @@
     <section class="section animate" id="cred">
       <div class="cred-badge" data-i18n="credBadge">US-based video production</div>
       <h2 data-i18n="credTitle">Why trust us</h2>
-      <div class="lead" data-i18n="credLead">AI + human curation, not bots. Real producers behind every drop.</div>
+      <div class="lead" data-i18n="credLead">Real producers + AI. No bots, no recycled packs.</div>
       <div class="logo-row">
         <div class="logo-placeholder">Logo</div>
         <div class="logo-placeholder">Logo</div>
@@ -479,16 +507,16 @@
         <div class="logo-placeholder">Logo</div>
       </div>
       <div class="cred-grid">
-        <div class="card" data-i18n="cred1">AI + human producers curate each idea. No recycled scripts.</div>
-        <div class="card" data-i18n="cred2">10+ years in content & video — US-based creative leads every drop.</div>
-        <div class="card" data-i18n="cred3">Cases with real numbers, not promises. Requests on call.</div>
+        <div class="card" data-i18n="cred1">AI + humans curate each idea. No repeats.</div>
+        <div class="card" data-i18n="cred2">10+ years in video. US leads every drop.</div>
+        <div class="card" data-i18n="cred3">Real case numbers on request.</div>
         <div class="card"><a href="#" data-i18n="cred4">See our production site →</a></div>
       </div>
     </section>
 
     <section class="section animate" id="offer">
       <h2 data-i18n="offerTitle">Subscription plans</h2>
-      <p class="lead" data-i18n="offerCopy">Monthly subscription. Cancel anytime. Cheaper than hiring an SMM.</p>
+      <p class="lead" data-i18n="offerCopy">Monthly subscription. Cancel anytime. Cheaper than an SMM hire.</p>
       <div class="pricing">
         <div class="card price-card">
           <div class="tag" data-i18n="tagLite">Starter</div>
@@ -528,28 +556,28 @@
             <span data-i18n="faq1Q">Is this for beginners?</span>
             <span>+</span>
           </button>
-          <div class="faq-answer" data-i18n="faq1A">Yes. We send simple scripts and angles you can film on your phone.</div>
+          <div class="faq-answer" data-i18n="faq1A">Yes. Simple scripts and angles for your phone.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button">
             <span data-i18n="faq2Q">Do I need editing skills?</span>
             <span>+</span>
           </button>
-          <div class="faq-answer" data-i18n="faq2A">Basic phone editing is enough. We provide shot lists and captions.</div>
+          <div class="faq-answer" data-i18n="faq2A">Basic phone editing is enough. We add shot lists and captions.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button">
             <span data-i18n="faq3Q">Is this real trends?</span>
             <span>+</span>
           </button>
-          <div class="faq-answer" data-i18n="faq3A">Yes. AI scans live data and humans verify — no recycled idea packs.</div>
+          <div class="faq-answer" data-i18n="faq3A">Yes. Live data + human filter. No recycled packs.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button">
             <span data-i18n="faq4Q">How often do I get ideas?</span>
             <span>+</span>
           </button>
-          <div class="faq-answer" data-i18n="faq4A">Choose weekly or daily drops. Month-to-month, cancel anytime.</div>
+          <div class="faq-answer" data-i18n="faq4A">Weekly or daily drops. Month-to-month, cancel anytime.</div>
         </div>
       </div>
     </section>
@@ -568,7 +596,7 @@
         <div class="card" style="position:relative; overflow:hidden;">
           <div class="limited" style="margin-bottom:10px;" data-i18n="leadBadge">Subscription waitlist</div>
           <h3 data-i18n="leadTitle">Talk to a producer</h3>
-          <p class="subtle" data-i18n="leadCopy">Share your niche and WhatsApp — we send a sample drop and book your start.</p>
+          <p class="subtle" data-i18n="leadCopy">Drop your niche and WhatsApp — we send a sample and schedule start.</p>
           <form id="lead-form" class="lead-form">
             <div class="input-row">
               <input type="text" name="name" placeholder="Name" data-i18n-placeholder="leadName" required />
@@ -628,54 +656,59 @@
         float1: 'AI scans trending audio hourly',
         float2: 'Producers hand-pick and polish',
         visualsTitle: 'What the drops look like',
-        visualsLead: 'Real creative snapshots to keep it tangible — minimal text, more pictures.',
+        visualsLead: 'Real snapshots. Minimal text. See the ideas before you subscribe.',
+        moodTitle: 'Trend moodboard',
+        mood1: 'Trending audio picks',
+        mood2: 'Shot lists in one glance',
+        mood3: 'Quick captions & hooks',
+        mood4: 'Platform-ready thumbs',
         visuals1: 'Ready-to-film hooks with angles and captions.',
         visuals2: 'AI scores + human polish = zero fluff.',
         visuals3: 'Phone-first storyboards you can film in 20 minutes.',
         visualsChip: 'Trend drop sample',
         visualsChip2: 'Made for non-pros',
         outcomeTitle: 'Why creators subscribe',
-        outcomeLead: 'Outcomes, not jargon. Each card is a promise we deliver with AI + human curation.',
-        outcome1: 'Never run out of ideas — fresh trends dropped weekly or daily.',
-        outcome2: 'Post like a pro without hiring one — scripts, hooks, captions done.',
-        outcome3: 'Stay ahead of trends — we send what\'s about to pop, not what already did.',
-        outcome4: 'Shoot content in 20 minutes — record on your phone with step-by-step angles.',
+        outcomeLead: 'Fast wins, clear benefits. Short cards, zero fluff.',
+        outcome1: 'Ideas on tap — weekly or daily drops.',
+        outcome2: 'Post like a pro — scripts, hooks, captions.',
+        outcome3: 'Ahead of the wave — we send what will pop.',
+        outcome4: 'Shoot in 20 minutes — phone-ready angles.',
         whoTitle: 'Who this is for',
-        whoLead: 'Designed for people who want growth without a full SMM hire.',
+        whoLead: 'For creators and small teams that want quick wins without an SMM hire.',
         who1: 'Beginner creators wanting structure',
-        who1Desc: 'Clear hooks and scripts for your first consistent wins.',
+        who1Desc: 'Clear hooks to start posting weekly.',
         who2: 'Small brands & shops',
-        who2Desc: 'Weekly ideas that turn viewers into foot traffic and orders.',
+        who2Desc: 'Ideas that turn scrollers into buyers.',
         who3: 'Founders & experts',
-        who3Desc: 'Authority-building trend takes without an agency retainer.',
+        who3Desc: 'Authority shots without an agency.',
         who4: 'Local businesses',
-        who4Desc: 'Simple phone-friendly shoots that highlight your services.',
+        who4Desc: 'Phone-friendly shoots that showcase services.',
         growthTitle: 'Growth examples',
-        growthLead: 'Simple before → after proof. What happens when you post the ideas we send.',
+        growthLead: 'Before → after. Post the drops, watch the climb.',
         followers: 'Followers',
         views: 'Monthly views',
-        growthNote: 'Influencer niches: beauty, fitness, DTC. Results depend on effort and niche.',
+        growthNote: 'Beauty, fitness, DTC. Your effort sets the slope.',
         howTitle: 'How the subscription works',
-        howLead: 'From “I need ideas” to “I post with confidence” in five short steps.',
+        howLead: 'Five quick beats from sign-up to posting.',
         step1Title: 'Subscribe',
-        step1Desc: 'Pick weekly or daily trend drops tailored to your niche.',
+        step1Desc: 'Pick weekly or daily drops for your niche.',
         step2Title: 'AI scans, humans verify',
-        step2Desc: 'We score viral potential, then producers hand-pick what feels right.',
+        step2Desc: 'AI scores, producers select.',
         step3Title: 'You receive ready-to-film ideas',
-        step3Desc: 'Hooks, scripts, captions, thumbnails, and angles in one drop.',
+        step3Desc: 'Hooks, captions, thumbs, angles in one drop.',
         step4Title: 'Shoot on your phone',
-        step4Desc: 'Record in 20 minutes. No studio, no gear, just clear direction.',
+        step4Desc: '20-minute shoots on your phone.',
         step5Title: 'Grow consistently',
-        step5Desc: 'We track performance and adjust the next drop based on wins.',
+        step5Desc: 'We tweak the next drop based on wins.',
         credBadge: 'US-based video production',
         credTitle: 'Why trust us',
-        credLead: 'AI + human curation, not bots. Real producers behind every drop.',
-        cred1: 'AI + human producers curate each idea. No recycled scripts.',
-        cred2: '10+ years in content & video — US-based creative leads every drop.',
-        cred3: 'Cases with real numbers, not promises. Requests on call.',
+        credLead: 'Real producers + AI. No bots, no recycled packs.',
+        cred1: 'AI + humans curate each idea. No repeats.',
+        cred2: '10+ years in video. US leads every drop.',
+        cred3: 'Real case numbers on request.',
         cred4: 'See our production site →',
         offerTitle: 'Subscription plans',
-        offerCopy: 'Monthly subscription. Cancel anytime. Cheaper than hiring an SMM.',
+        offerCopy: 'Monthly subscription. Cancel anytime. Cheaper than an SMM hire.',
         tagLite: 'Starter',
         planLite: 'Pulse access',
         priceLite: '$89 / mo',
@@ -693,20 +726,20 @@
         offerHint: 'Limited seats',
         faqTitle: 'FAQ',
         faq1Q: 'Is this for beginners?',
-        faq1A: 'Yes. We send simple scripts and angles you can film on your phone.',
+        faq1A: 'Yes. Simple scripts and angles for your phone.',
         faq2Q: 'Do I need editing skills?',
-        faq2A: 'Basic phone editing is enough. We provide shot lists and captions.',
+        faq2A: 'Basic phone editing is enough. We add shot lists and captions.',
         faq3Q: 'Is this real trends?',
-        faq3A: 'Yes. AI scans live data and humans verify — no recycled idea packs.',
+        faq3A: 'Yes. Live data + human filter. No recycled packs.',
         faq4Q: 'How often do I get ideas?',
-        faq4A: 'Choose weekly or daily drops. Month-to-month, cancel anytime.',
+        faq4A: 'Weekly or daily drops. Month-to-month, cancel anytime.',
         finalTitle: 'Want viral ideas delivered before everyone else?',
-        finalCopy: 'Tell us your niche. We\'ll send a trend sample and a time to onboard.',
+        finalCopy: 'Tell us your niche. We\'ll send a sample and onboard time.',
         finalCta: 'Start subscription',
         finalAlt: 'WhatsApp',
         leadBadge: 'Subscription waitlist',
         leadTitle: 'Talk to a producer',
-        leadCopy: 'Share your niche and WhatsApp — we send a sample drop and book your start.',
+        leadCopy: 'Drop your niche and WhatsApp — we send a sample and schedule start.',
         leadName: 'Name',
         leadPhone: 'WhatsApp',
         leadNiche: 'Niche',
@@ -727,7 +760,7 @@
         navCta: 'Запустить подписку',
         eyebrow: 'Тренд-команда в реальном времени: ИИ + люди',
         headline: 'Получайте идеи вирусных роликов каждую неделю. Без SMM-специалиста.',
-        subtitle: 'Месячная подписка: ИИ и продюсеры присылают готовые тренды для съёмки.',
+        subtitle: 'ИИ и продюсеры присылают готовые тренды по подписке.',
         chip1: 'Сервис по подписке',
         chip2: 'ИИ + ручная модерация',
         chip3: 'Готово за 20 минут',
@@ -752,51 +785,56 @@
         float1: 'ИИ сканирует тренды по аудио каждый час',
         float2: 'Продюсеры вручную отбирают и шлифуют',
         visualsTitle: 'Как выглядят дропы',
-        visualsLead: 'Реальные кадры и сториборды — минимум текста, больше визуала.',
+        visualsLead: 'Реальные кадры, минимум текста. Видите идеи до оплаты.',
+        moodTitle: 'Мудборд трендов',
+        mood1: 'Треки, что растут',
+        mood2: 'Списки кадров одним взглядом',
+        mood3: 'Быстрые подписи и хуки',
+        mood4: 'Превью под площадки',
         visuals1: 'Готовые хуки, ракурсы и подписи для съёмки.',
         visuals2: 'Оценка ИИ + ручная правка — без воды.',
         visuals3: 'Сториборды под телефон, снимаете за 20 минут.',
         visualsChip: 'Сэмпл дропа',
         visualsChip2: 'Для неспециалистов',
         outcomeTitle: 'Почему оформляют подписку',
-        outcomeLead: 'Результаты, а не термины. Каждая карточка — обещание, которое мы выполняем.',
-        outcome1: 'Идеи не заканчиваются — новые тренды каждую неделю или день.',
-        outcome2: 'Посты как у продакшена, без найма — хуки, сценарии, тексты готовы.',
-        outcome3: 'Опередите тренды — шлём то, что вот-вот выстрелит.',
-        outcome4: 'Съёмка за 20 минут — подробные шаги для телефона.',
+        outcomeLead: 'Быстрые выгоды. Коротко и по делу.',
+        outcome1: 'Идеи по подписке — ежедневно или еженедельно.',
+        outcome2: 'Посты как у продакшена — хуки, тексты, сценарии.',
+        outcome3: 'Всегда раньше — отправляем то, что выстрелит.',
+        outcome4: '20 минут на съёмку — всё под телефон.',
         whoTitle: 'Кому подойдёт',
-        whoLead: 'Для тех, кто хочет расти без полноценного SMM-штата.',
+        whoLead: 'Для креаторов и небольших команд, кому нужен рост без найма SMM.',
         who1: 'Новички-креаторы, которым нужна структура',
-        who1Desc: 'Понятные хуки и сценарии для первых стабильных побед.',
+        who1Desc: 'Понятные хуки, чтобы начать постить стабильно.',
         who2: 'Небольшие бренды и магазины',
-        who2Desc: 'Еженедельные идеи, которые превращают просмотры в заказы.',
+        who2Desc: 'Идеи, превращающие просмотр в покупку.',
         who3: 'Фаундеры и эксперты',
-        who3Desc: 'Трендовые темы для экспертизы без агентского гонорара.',
+        who3Desc: 'Тренды для экспертизы без агентства.',
         who4: 'Локальный бизнес',
-        who4Desc: 'Простые съёмки на телефон, чтобы показать услуги.',
+        who4Desc: 'Съёмки на телефон, которые показывают услуги.',
         growthTitle: 'Примеры роста',
-        growthLead: 'Простая динамика “до → после”. Что бывает, когда постите то, что мы присылаем.',
+        growthLead: 'До → после. Публикуете дропы — видите рост.',
         followers: 'Подписчики',
         views: 'Просмотры в месяц',
-        growthNote: 'Ниши: бьюти, фитнес, DTC. Результат зависит от усилий и ниши.',
+        growthNote: 'Бьюти, фитнес, DTC. Сила роста зависит от вас.',
         howTitle: 'Как работает подписка',
-        howLead: 'От “нужны идеи” до “публикую уверенно” за пять коротких шагов.',
+        howLead: 'Пять коротких шагов от подписки до постинга.',
         step1Title: 'Оформляете подписку',
-        step1Desc: 'Выбираете еженедельные или ежедневные выгрузки под вашу нишу.',
+        step1Desc: 'Выбираете еженедельные или ежедневные выдачи под нишу.',
         step2Title: 'ИИ сканирует, люди проверяют',
-        step2Desc: 'Считаем вирусный потенциал, продюсеры оставляют лучшее.',
+        step2Desc: 'ИИ считает, продюсеры отбирают.',
         step3Title: 'Получаете готовые идеи',
-        step3Desc: 'Хуки, сценарии, тексты, превью и ракурсы в одном пакете.',
+        step3Desc: 'Хуки, тексты, превью и ракурсы в одном пакете.',
         step4Title: 'Снимаете на телефон',
-        step4Desc: '20 минут на съёмку. Без студии и сложной техники.',
+        step4Desc: 'Съёмка за 20 минут на телефон.',
         step5Title: 'Растёте стабильно',
-        step5Desc: 'Смотрим на результаты и корректируем следующую выдачу.',
+        step5Desc: 'Правим следующую выдачу по вашим победам.',
         credBadge: 'Продакшн из США',
         credTitle: 'Почему нам верят',
-        credLead: 'ИИ + люди, никакого бота. За каждой подборкой стоят продюсеры.',
-        cred1: 'Идеи курируют продюсеры. Никаких повторов из пакетов.',
-        cred2: '10+ лет в контенте и видео — лиды из США ведут качество.',
-        cred3: 'Реальные цифры в кейсах. Покажем по запросу.',
+        credLead: 'Реальные продюсеры + ИИ. Никаких ботов и повторов.',
+        cred1: 'Идеи курируют продюсеры. Без повторов.',
+        cred2: '10+ лет в видео. Руководство из США.',
+        cred3: 'Цифры в кейсах — покажем по запросу.',
         cred4: 'Сайт нашего продакшена →',
         offerTitle: 'Тарифы подписки',
         offerCopy: 'Месячная подписка. Отмена в любой момент. Дешевле, чем нанять SMM.',
@@ -817,20 +855,20 @@
         offerHint: 'Ограничено мест',
         faqTitle: 'FAQ',
         faq1Q: 'Подойдёт новичкам?',
-        faq1A: 'Да. Даём простые сценарии и ракурсы, снимаете на телефон.',
+        faq1A: 'Да. Простые сценарии и ракурсы под телефон.',
         faq2Q: 'Нужны скиллы монтажа?',
-        faq2A: 'Достаточно базового редактирования. Прикладываем списки кадров и тексты.',
+        faq2A: 'Базового редактирования хватит. Даём список кадров и тексты.',
         faq3Q: 'Это реальные тренды?',
-        faq3A: 'Да. ИИ собирает данные вживую, люди проверяют — без переработанных паков.',
+        faq3A: 'Да. Живые данные + ручная проверка, без паков.',
         faq4Q: 'Как часто приходят идеи?',
-        faq4A: 'По выбору: еженедельно или ежедневно. Помесячно, отмена в любой момент.',
-        finalTitle: 'Хотите получать идеи раньше остальных?',
-        finalCopy: 'Сообщите нишу. Пришлём пробный тренд и время для онбординга.',
+        faq4A: 'Еженедельно или ежедневно. Помесячно, отмена в любой момент.',
+        finalTitle: 'Хотите идеи раньше остальных?',
+        finalCopy: 'Напишите нишу. Пришлём пример тренда и время старта.',
         finalCta: 'Запустить подписку',
         finalAlt: 'WhatsApp',
         leadBadge: 'Лист ожидания',
         leadTitle: 'Созвон с продюсером',
-        leadCopy: 'Напишите нишу и WhatsApp — отправим пример выдачи и назначим старт.',
+        leadCopy: 'Оставьте нишу и WhatsApp — пришлём пример и время старта.',
         leadName: 'Имя',
         leadPhone: 'WhatsApp',
         leadNiche: 'Ниша',
