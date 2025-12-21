@@ -29,9 +29,7 @@
     body {
       margin: 0;
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: radial-gradient(circle at 20% 20%, rgba(56, 243, 145, 0.08), transparent 35%),
-                  radial-gradient(circle at 80% 0%, rgba(86, 225, 255, 0.08), transparent 32%),
-                  linear-gradient(180deg, #f8fafc 0%, #edf2ff 100%);
+      background: linear-gradient(180deg, #f9fbff 0%, #f3f7ff 50%, #f9fbff 100%);
       color: var(--text);
       line-height: 1.6;
       letter-spacing: -0.01em;
@@ -99,9 +97,10 @@
     .hero::before {
       content: '';
       position: absolute;
-      inset: -40px -80px -30px -80px;
-      background: linear-gradient(135deg, rgba(56, 243, 145, 0.08), rgba(86, 131, 255, 0.08));
-      filter: blur(60px);
+      inset: -30px -40px -20px -40px;
+      background: radial-gradient(circle at 30% 0%, rgba(56, 243, 145, 0.08), transparent 35%),
+                  radial-gradient(circle at 90% 10%, rgba(105, 133, 255, 0.08), transparent 40%);
+      filter: blur(50px);
       z-index: -1;
     }
 
@@ -125,12 +124,11 @@
 
     .hero-visual {
       position: relative;
-      background: radial-gradient(circle at 20% 10%, rgba(56, 243, 145, 0.28), transparent 45%),
-                  linear-gradient(145deg, #0d1427, #0f213d);
+      background: linear-gradient(145deg, #0c172a, #0e2037);
       border-radius: 24px;
       padding: 18px;
       overflow: hidden;
-      box-shadow: 0 30px 70px rgba(7, 15, 30, 0.55);
+      box-shadow: 0 22px 60px rgba(7, 15, 30, 0.45);
       border: 1px solid rgba(255,255,255,0.08);
       color: #e8f7ff;
       min-height: 360px;
@@ -149,8 +147,8 @@
 
     .video-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
     .video-card { background: rgba(255,255,255,0.07); border-radius: 14px; padding: 10px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); display: grid; gap: 8px; }
-    .thumb { border-radius: 12px; background: linear-gradient(135deg, #1d2f4d, #284a78); height: 90px; position: relative; overflow: hidden; }
-    .thumb::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(56, 243, 145, 0.2), transparent 60%); }
+    .thumb { border-radius: 12px; height: 90px; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+    .thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%); }
     .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: rgba(56, 243, 145, 0.16); color: #8effc4; font-weight: 700; font-size: 13px; }
 
     .floating { position: absolute; inset: auto 12px 14px auto; display: flex; flex-direction: column; gap: 10px; }
@@ -220,6 +218,12 @@
 
     .animate { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .animate.visible { opacity: 1; transform: translateY(0); }
+
+    .photo-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .photo-card { position: relative; overflow: hidden; border-radius: 18px; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow); min-height: 200px; }
+    .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(1.05); }
+    .photo-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(0,0,0,0.45)); color: #f8fbff; display: grid; align-content: end; padding: 14px; font-weight: 700; letter-spacing: -0.01em; }
+    .photo-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(255,255,255,0.85); color: #0f172a; border-radius: 999px; font-weight: 700; margin-top: 6px; }
   </style>
 </head>
 <body>
@@ -325,17 +329,17 @@
 
           <div class="video-strip">
             <div class="video-card">
-              <div class="thumb"></div>
+              <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80');"></div>
               <div class="pill">+360% growth</div>
               <div class="muted-light" data-i18n="vid1">Beginner creator → steady views</div>
             </div>
             <div class="video-card">
-              <div class="thumb"></div>
+              <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=800&q=80');"></div>
               <div class="pill">+1.1M views</div>
               <div class="muted-light" data-i18n="vid2">Local brand → viral weekend</div>
             </div>
             <div class="video-card">
-              <div class="thumb"></div>
+              <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80');"></div>
               <div class="pill">+920% lift</div>
               <div class="muted-light" data-i18n="vid3">Founder reels → consistent leads</div>
             </div>
@@ -344,6 +348,34 @@
         <div class="floating">
           <div class="float-card" data-i18n="float1">AI scans trending audio hourly</div>
           <div class="float-card" data-i18n="float2">Producers hand-pick and polish</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section animate" id="visuals">
+      <h2 data-i18n="visualsTitle">What the drops look like</h2>
+      <p class="lead" data-i18n="visualsLead">Real creative snapshots to keep it tangible — minimal text, more pictures.</p>
+      <div class="photo-grid">
+        <div class="photo-card">
+          <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1200&q=80" alt="Creator reviewing trend ideas" loading="lazy" />
+          <div class="photo-overlay">
+            <span data-i18n="visuals1">Ready-to-film hooks with angles and captions.</span>
+            <span class="photo-chip">IG · TikTok · Shorts</span>
+          </div>
+        </div>
+        <div class="photo-card">
+          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80" alt="Curator editing trend board" loading="lazy" />
+          <div class="photo-overlay">
+            <span data-i18n="visuals2">AI scores + human polish = zero fluff.</span>
+            <span class="photo-chip" data-i18n="visualsChip">Trend drop sample</span>
+          </div>
+        </div>
+        <div class="photo-card">
+          <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80" alt="Small business filming content" loading="lazy" />
+          <div class="photo-overlay">
+            <span data-i18n="visuals3">Phone-first storyboards you can film in 20 minutes.</span>
+            <span class="photo-chip" data-i18n="visualsChip2">Made for non-pros</span>
+          </div>
         </div>
       </div>
     </section>
@@ -595,6 +627,13 @@
         vid3: 'Founder reels → consistent leads',
         float1: 'AI scans trending audio hourly',
         float2: 'Producers hand-pick and polish',
+        visualsTitle: 'What the drops look like',
+        visualsLead: 'Real creative snapshots to keep it tangible — minimal text, more pictures.',
+        visuals1: 'Ready-to-film hooks with angles and captions.',
+        visuals2: 'AI scores + human polish = zero fluff.',
+        visuals3: 'Phone-first storyboards you can film in 20 minutes.',
+        visualsChip: 'Trend drop sample',
+        visualsChip2: 'Made for non-pros',
         outcomeTitle: 'Why creators subscribe',
         outcomeLead: 'Outcomes, not jargon. Each card is a promise we deliver with AI + human curation.',
         outcome1: 'Never run out of ideas — fresh trends dropped weekly or daily.',
@@ -712,6 +751,13 @@
         vid3: 'Рилсы фаундера → постоянные лиды',
         float1: 'ИИ сканирует тренды по аудио каждый час',
         float2: 'Продюсеры вручную отбирают и шлифуют',
+        visualsTitle: 'Как выглядят дропы',
+        visualsLead: 'Реальные кадры и сториборды — минимум текста, больше визуала.',
+        visuals1: 'Готовые хуки, ракурсы и подписи для съёмки.',
+        visuals2: 'Оценка ИИ + ручная правка — без воды.',
+        visuals3: 'Сториборды под телефон, снимаете за 20 минут.',
+        visualsChip: 'Сэмпл дропа',
+        visualsChip2: 'Для неспециалистов',
         outcomeTitle: 'Почему оформляют подписку',
         outcomeLead: 'Результаты, а не термины. Каждая карточка — обещание, которое мы выполняем.',
         outcome1: 'Идеи не заканчиваются — новые тренды каждую неделю или день.',
