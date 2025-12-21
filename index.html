@@ -262,7 +262,7 @@
     .trend-item strong { color: #fff; }
     .trend-item span { color: #92a8c6; }
 
-    .actions-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .actions-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 
     .section { margin: 40px 0; }
     .section h2 { margin: 0 0 12px; font-size: 26px; letter-spacing: -0.02em; }
@@ -367,7 +367,7 @@
           <button class="active" data-lang="en">EN</button>
           <button data-lang="ru">RU</button>
         </div>
-        <button class="btn-primary" data-i18n="navCta">Get Boost</button>
+        <button class="btn-primary" data-i18n="navCta" data-scroll="#lead">Get Boost</button>
       </div>
     </div>
   </header>
@@ -395,8 +395,8 @@
         </div>
 
         <div class="actions-row">
-          <button class="btn-primary" data-i18n="heroCtaPrimary">Subscribe</button>
-          <button class="btn-secondary" data-i18n="heroCtaSecondary">See examples</button>
+          <button class="btn-primary" data-i18n="heroCtaPrimary" data-scroll="#lead">Subscribe</button>
+          <button class="btn-secondary" data-i18n="heroCtaSecondary" data-scroll="#examples">See examples</button>
         </div>
       </div>
 
@@ -489,7 +489,7 @@
       <h2 data-i18n="offerTitle">Offer</h2>
       <div data-i18n="offerCopy">Monthly subscription, priced like a fast-food meal. Limited client seats to keep quality high.</div>
       <div class="actions-row">
-        <button class="btn-primary" data-i18n="offerCta">Claim a spot</button>
+        <button class="btn-primary" data-i18n="offerCta" data-scroll="#lead">Claim a spot</button>
         <span class="subtle" data-i18n="offerHint">Only 7 slots open this month.</span>
       </div>
     </section>
@@ -533,24 +533,24 @@
         <h2 data-i18n="leadTitle">WhatsApp signup</h2>
         <p class="lead" data-i18n="leadCopy">Tell us your niche and number—our producer will message you with the next available slot.</p>
       </div>
-      <div class="card lead-form">
+      <form class="card lead-form" id="lead-form">
         <div class="input-row">
           <label>
             <span data-i18n="leadName">Name</span>
-            <input type="text" placeholder="Alex" />
+            <input name="name" type="text" placeholder="Alex" />
           </label>
           <label>
             <span data-i18n="leadPhone">WhatsApp number</span>
-            <input type="tel" placeholder="+1 555 123 4567" />
+            <input name="phone" type="tel" placeholder="+1 555 123 4567" />
           </label>
           <label>
             <span data-i18n="leadNiche">Niche</span>
-            <input type="text" placeholder="Beauty, fitness, fintech..." />
+            <input name="niche" type="text" placeholder="Beauty, fitness, fintech..." />
           </label>
         </div>
-        <button class="btn-primary" data-i18n="leadCta">Book via WhatsApp</button>
+        <button class="btn-primary" type="submit" data-i18n="leadCta">Book via WhatsApp</button>
         <div class="subtle" data-i18n="leadNote">We reply within 24 hours. Zero spam.</div>
-      </div>
+      </form>
     </section>
   </main>
 
@@ -705,8 +705,38 @@
     document.querySelectorAll('.faq-item').forEach(item => {
       const button = item.querySelector('.faq-question');
       button.addEventListener('click', () => {
-        item.classList.toggle('active');
+        const isActive = item.classList.toggle('active');
+        button.setAttribute('aria-expanded', isActive);
       });
+    });
+
+    document.querySelectorAll('[data-scroll]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = document.querySelector(btn.dataset.scroll);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    const leadForm = document.getElementById('lead-form');
+
+    leadForm?.addEventListener('submit', event => {
+      event.preventDefault();
+      const formData = new FormData(leadForm);
+      const name = formData.get('name')?.toString().trim();
+      const phone = formData.get('phone')?.toString().trim();
+      const niche = formData.get('niche')?.toString().trim();
+
+      const intro = translations[document.documentElement.lang]?.leadTitle || 'WhatsApp signup';
+      const parts = [intro];
+      if (name) parts.push(`Name: ${name}`);
+      if (phone) parts.push(`WhatsApp: ${phone}`);
+      if (niche) parts.push(`Niche: ${niche}`);
+
+      const text = parts.join('\n');
+      const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
     });
   </script>
 </body>
