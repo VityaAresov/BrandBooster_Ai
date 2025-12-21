@@ -163,6 +163,10 @@
     .grid-3 { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
     .grid-2 { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 
+    .audience { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .audience-card { position: relative; overflow: hidden; }
+    .audience-card::after { content: ''; position: absolute; inset: auto 18px 18px auto; width: 90px; height: 90px; background: radial-gradient(circle, rgba(56,243,145,0.18), transparent 60%); filter: blur(12px); }
+
     .card { background: var(--card); border: 1px solid rgba(226, 232, 240, 0.9); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); transition: var(--transition); backdrop-filter: blur(10px); }
     .card:hover { transform: translateY(-3px); }
 
@@ -229,7 +233,8 @@
         <ul>
           <li><a href="#how" data-i18n="menuHow">How it works</a></li>
           <li><a href="#examples" data-i18n="menuExamples">Examples</a></li>
-          <li><a href="#offer" data-i18n="menuOffer">Offer</a></li>
+          <li><a href="#who" data-i18n="menuWho">Who it's for</a></li>
+          <li><a href="#offer" data-i18n="menuOffer">Subscription</a></li>
           <li><a href="#faq" data-i18n="menuFaq">FAQ</a></li>
         </ul>
       </nav>
@@ -238,7 +243,7 @@
           <button class="active" data-lang="en">EN</button>
           <button data-lang="ru">RU</button>
         </div>
-        <button class="btn-primary" data-i18n="navCta" data-scroll="#lead">Book a Call</button>
+        <button class="btn-primary" data-i18n="navCta" data-scroll="#offer">Start subscription</button>
       </div>
     </div>
   </header>
@@ -246,19 +251,19 @@
   <main class="page">
     <section class="hero animate">
       <div class="hero-grid">
-        <span class="eyebrow"><span class="spark"></span><span data-i18n="eyebrow">AI radar for what's about to go viral</span></span>
-        <h1 class="headline" data-i18n="headline">See what goes viral before it explodes.</h1>
-        <p class="subtitle" data-i18n="subtitle">BrandBooster AI scouts live trends and scripts video ideas so you can ride the wave first.</p>
+        <span class="eyebrow"><span class="spark"></span><span data-i18n="eyebrow">Real-time trend crew: AI + humans</span></span>
+        <h1 class="headline" data-i18n="headline">Get viral video ideas every week. No SMM needed.</h1>
+        <p class="subtitle" data-i18n="subtitle">Monthly subscription that sends ready-to-film trends from AI + real producers.</p>
 
         <div class="chips">
-          <span class="chip" data-i18n="chip1">Viral hooks & scripts</span>
-          <span class="chip" data-i18n="chip2">Weekly drops by niche</span>
-          <span class="chip" data-i18n="chip3">Captions + hashtags + thumbnails</span>
+          <span class="chip" data-i18n="chip1">Subscription service</span>
+          <span class="chip" data-i18n="chip2">AI + human curation</span>
+          <span class="chip" data-i18n="chip3">Ready in 20 minutes</span>
         </div>
 
         <div class="actions-row">
-          <button class="btn-primary" data-i18n="heroCtaPrimary" data-scroll="#lead">Book a Call</button>
-          <button class="btn-secondary" data-i18n="heroCtaSecondary" data-scroll="#examples">See live trends</button>
+          <button class="btn-primary" data-i18n="heroCtaPrimary" data-scroll="#offer">Start subscription</button>
+          <button class="btn-secondary" data-i18n="heroCtaSecondary" data-scroll="#lead">Book a call</button>
           <div class="platforms">
             <span class="platform"><span class="dot ig"></span>Instagram</span>
             <span class="platform"><span class="dot tt"></span>TikTok</span>
@@ -268,48 +273,52 @@
 
         <div class="metric-row">
           <div class="metric">
-            <strong data-animate="320">320k</strong>
+            <strong data-animate="480">480k</strong>
             <span class="badge" data-i18n="metric1">views tracked daily</span>
           </div>
           <div class="metric">
-            <strong data-animate="72">72</strong>
-            <span class="badge" data-i18n="metric2">hot topics in queue</span>
+            <strong data-animate="96">96</strong>
+            <span class="badge" data-i18n="metric2">fresh ideas queued</span>
+          </div>
+          <div class="metric">
+            <strong data-animate="14">14</strong>
+            <span class="badge" data-i18n="metric3">real producers onboard</span>
           </div>
         </div>
       </div>
 
       <div class="hero-visual animate" aria-label="AI trend radar">
-        <div class="glass-tag" data-i18n="visualTag">Real-time feed</div>
+        <div class="glass-tag" data-i18n="visualTag">Live trend feed</div>
         <div class="visual-grid">
           <div class="trend-card">
             <div class="trend-header">
               <div>
-                <div class="trend-title" data-i18n="trendTitle">Trend Feed</div>
-                <div class="muted-light" style="font-size:13px;" data-i18n="trendDesc">AI picks topics with 70%+ viral probability</div>
+                <div class="trend-title" data-i18n="trendTitle">What we send you</div>
+                <div class="muted-light" style="font-size:13px;" data-i18n="trendDesc">AI scores + human polish → shoot in minutes</div>
               </div>
               <span class="pill" data-i18n="trendLive">Live</span>
             </div>
             <div class="trend-items">
               <div class="trend-item">
                 <div>
-                  <strong data-i18n="trend1Title">Glow-up behind the scenes</strong>
-                  <div style="font-size:13px;" data-i18n="trend1Subtitle">Hook + script + hashtags ready</div>
+                  <strong data-i18n="trend1Title">High viral potential</strong>
+                  <div style="font-size:13px;" data-i18n="trend1Subtitle">Hook, script, angles, hashtags</div>
                 </div>
-                <span>48k ▶</span>
+                <span>78k ▶</span>
               </div>
               <div class="trend-item">
                 <div>
-                  <strong data-i18n="trend2Title">Micro-influencer collab</strong>
-                  <div style="font-size:13px;" data-i18n="trend2Subtitle">Shoot in 30 minutes</div>
+                  <strong data-i18n="trend2Title">Ready-to-film today</strong>
+                  <div style="font-size:13px;" data-i18n="trend2Subtitle">Record on phone in 20 minutes</div>
                 </div>
-                <span>72k ▶</span>
+                <span>124k ▶</span>
               </div>
               <div class="trend-item">
                 <div>
-                  <strong data-i18n="trend3Title">Day-in-the-life challenge</strong>
-                  <div style="font-size:13px;" data-i18n="trend3Subtitle">Daily schedule provided</div>
+                  <strong data-i18n="trend3Title">Human-checked</strong>
+                  <div style="font-size:13px;" data-i18n="trend3Subtitle">No bots, no spammy automation</div>
                 </div>
-                <span>91k ▶</span>
+                <span>310k ▶</span>
               </div>
             </div>
           </div>
@@ -317,27 +326,69 @@
           <div class="video-strip">
             <div class="video-card">
               <div class="thumb"></div>
-              <div class="pill">+248k views</div>
-              <div class="muted-light" data-i18n="vid1">Product teaser → viral</div>
+              <div class="pill">+360% growth</div>
+              <div class="muted-light" data-i18n="vid1">Beginner creator → steady views</div>
             </div>
             <div class="video-card">
               <div class="thumb"></div>
-              <div class="pill">+780% growth</div>
-              <div class="muted-light" data-i18n="vid2">Founder story → spike</div>
+              <div class="pill">+1.1M views</div>
+              <div class="muted-light" data-i18n="vid2">Local brand → viral weekend</div>
             </div>
             <div class="video-card">
               <div class="thumb"></div>
-              <div class="pill">+1.2M views</div>
-              <div class="muted-light" data-i18n="vid3">Challenge reel → trend</div>
+              <div class="pill">+920% lift</div>
+              <div class="muted-light" data-i18n="vid3">Founder reels → consistent leads</div>
             </div>
           </div>
+        </div>
+        <div class="floating">
+          <div class="float-card" data-i18n="float1">AI scans trending audio hourly</div>
+          <div class="float-card" data-i18n="float2">Producers hand-pick and polish</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section animate" id="outcomes">
+      <h2 data-i18n="outcomeTitle">Why creators subscribe</h2>
+      <p class="lead" data-i18n="outcomeLead">Outcomes, not jargon. Each card is a promise we deliver with AI + human curation.</p>
+      <div class="grid-2">
+        <div class="card" data-i18n="outcome1">Never run out of ideas — fresh trends dropped weekly or daily.</div>
+        <div class="card" data-i18n="outcome2">Post like a pro without hiring one — scripts, hooks, captions done.</div>
+        <div class="card" data-i18n="outcome3">Stay ahead of trends — we send what\'s about to pop, not what already did.</div>
+        <div class="card" data-i18n="outcome4">Shoot content in 20 minutes — record on your phone with step-by-step angles.</div>
+      </div>
+    </section>
+
+    <section class="section animate" id="who">
+      <h2 data-i18n="whoTitle">Who this is for</h2>
+      <p class="lead" data-i18n="whoLead">Designed for people who want growth without a full SMM hire.</p>
+      <div class="grid-3 audience">
+        <div class="card audience-card">
+          <div class="step-icon">🎥</div>
+          <strong data-i18n="who1">Beginner creators wanting structure</strong>
+          <p class="subtle" data-i18n="who1Desc">Clear hooks and scripts for your first consistent wins.</p>
+        </div>
+        <div class="card audience-card">
+          <div class="step-icon">🏪</div>
+          <strong data-i18n="who2">Small brands & shops</strong>
+          <p class="subtle" data-i18n="who2Desc">Weekly ideas that turn viewers into foot traffic and orders.</p>
+        </div>
+        <div class="card audience-card">
+          <div class="step-icon">🧠</div>
+          <strong data-i18n="who3">Founders & experts</strong>
+          <p class="subtle" data-i18n="who3Desc">Authority-building trend takes without an agency retainer.</p>
+        </div>
+        <div class="card audience-card">
+          <div class="step-icon">📍</div>
+          <strong data-i18n="who4">Local businesses</strong>
+          <p class="subtle" data-i18n="who4Desc">Simple phone-friendly shoots that highlight your services.</p>
         </div>
       </div>
     </section>
 
     <section class="section animate" id="examples">
       <h2 data-i18n="growthTitle">Growth examples</h2>
-      <p class="lead" data-i18n="growthLead">Full-width wins. Watch quiet accounts flip into buzzing channels.</p>
+      <p class="lead" data-i18n="growthLead">Simple before → after proof. What happens when you post the ideas we send.</p>
       <div class="growth-panel">
         <div class="growth-row">
           <div class="growth-number"><span data-animate="3100">3.1k</span> → <span data-animate="24800">24.8k</span><small data-i18n="followers">Followers</small></div>
@@ -354,23 +405,33 @@
     </section>
 
     <section class="section animate" id="how">
-      <h2 data-i18n="howTitle">How it works</h2>
-      <p class="lead" data-i18n="howLead">Minimal text, maximum clarity. Three moves to hit the trend while it's hot.</p>
+      <h2 data-i18n="howTitle">How the subscription works</h2>
+      <p class="lead" data-i18n="howLead">From “I need ideas” to “I post with confidence” in five short steps.</p>
       <div class="steps">
         <div class="card step">
           <div class="step-icon">1</div>
-          <strong data-i18n="step1Title">We scan your niche</strong>
-          <p class="subtle" data-i18n="step1Desc">AI monitors viral audio, hooks, and formats in your category every morning.</p>
+          <strong data-i18n="step1Title">Subscribe</strong>
+          <p class="subtle" data-i18n="step1Desc">Pick weekly or daily trend drops tailored to your niche.</p>
         </div>
         <div class="card step">
           <div class="step-icon">2</div>
-          <strong data-i18n="step2Title">We script & storyboard</strong>
-          <p class="subtle" data-i18n="step2Desc">You get ready-to-film scripts, captions, CTAs, and thumbnail prompts.</p>
+          <strong data-i18n="step2Title">AI scans, humans verify</strong>
+          <p class="subtle" data-i18n="step2Desc">We score viral potential, then producers hand-pick what feels right.</p>
         </div>
         <div class="card step">
           <div class="step-icon">3</div>
-          <strong data-i18n="step3Title">You film, we optimize</strong>
-          <p class="subtle" data-i18n="step3Desc">Upload drafts, we tweak for platform rules and schedule posting.</p>
+          <strong data-i18n="step3Title">You receive ready-to-film ideas</strong>
+          <p class="subtle" data-i18n="step3Desc">Hooks, scripts, captions, thumbnails, and angles in one drop.</p>
+        </div>
+        <div class="card step">
+          <div class="step-icon">4</div>
+          <strong data-i18n="step4Title">Shoot on your phone</strong>
+          <p class="subtle" data-i18n="step4Desc">Record in 20 minutes. No studio, no gear, just clear direction.</p>
+        </div>
+        <div class="card step">
+          <div class="step-icon">5</div>
+          <strong data-i18n="step5Title">Grow consistently</strong>
+          <p class="subtle" data-i18n="step5Desc">We track performance and adjust the next drop based on wins.</p>
         </div>
       </div>
     </section>
@@ -378,7 +439,7 @@
     <section class="section animate" id="cred">
       <div class="cred-badge" data-i18n="credBadge">US-based video production</div>
       <h2 data-i18n="credTitle">Why trust us</h2>
-      <div class="lead" data-i18n="credLead">Logos, cases, and hard-won experience—built for brands that want proof.</div>
+      <div class="lead" data-i18n="credLead">AI + human curation, not bots. Real producers behind every drop.</div>
       <div class="logo-row">
         <div class="logo-placeholder">Logo</div>
         <div class="logo-placeholder">Logo</div>
@@ -386,21 +447,21 @@
         <div class="logo-placeholder">Logo</div>
       </div>
       <div class="cred-grid">
-        <div class="card" data-i18n="cred1">US-based video production team, real editors and producers.</div>
-        <div class="card" data-i18n="cred2">10+ years in commercials, product launches, and brand storytelling.</div>
-        <div class="card" data-i18n="cred3">Documented cases with measurable ROI and retention.</div>
+        <div class="card" data-i18n="cred1">AI + human producers curate each idea. No recycled scripts.</div>
+        <div class="card" data-i18n="cred2">10+ years in content & video — US-based creative leads every drop.</div>
+        <div class="card" data-i18n="cred3">Cases with real numbers, not promises. Requests on call.</div>
         <div class="card"><a href="#" data-i18n="cred4">See our production site →</a></div>
       </div>
     </section>
 
     <section class="section animate" id="offer">
-      <h2 data-i18n="offerTitle">Offer & CTA</h2>
-      <p class="lead" data-i18n="offerCopy">Monthly subscription, priced like a fast-food meal. Limited seats to keep quality high.</p>
+      <h2 data-i18n="offerTitle">Subscription plans</h2>
+      <p class="lead" data-i18n="offerCopy">Monthly subscription. Cancel anytime. Cheaper than hiring an SMM.</p>
       <div class="pricing">
         <div class="card price-card">
           <div class="tag" data-i18n="tagLite">Starter</div>
           <h3 data-i18n="planLite">Pulse access</h3>
-          <div class="price" data-i18n="priceLite">$19 / wk</div>
+          <div class="price" data-i18n="priceLite">$89 / mo</div>
           <ul>
             <li data-i18n="lite1">Weekly viral trend drops</li>
             <li data-i18n="lite2">Scripts + captions + hashtags</li>
@@ -413,7 +474,7 @@
         <div class="card price-card" style="border-color: rgba(56,243,145,0.6); box-shadow: 0 30px 70px rgba(56, 243, 145, 0.3);">
           <div class="tag" data-i18n="tagBest">Best value</div>
           <h3 data-i18n="planPro">Creator lift</h3>
-          <div class="price" data-i18n="pricePro">$59 / wk</div>
+          <div class="price" data-i18n="pricePro">$219 / mo</div>
           <ul>
             <li data-i18n="pro1">Daily trend radar + alerts</li>
             <li data-i18n="pro2">Storyboard + edit feedback</li>
@@ -421,7 +482,7 @@
           </ul>
           <div class="actions-row" style="margin-top:12px;">
             <button class="btn-primary" data-i18n="offerCta" data-scroll="#lead">Book a call</button>
-            <span class="limited" data-i18n="offerHint">Limited spots</span>
+            <span class="limited" data-i18n="offerHint">Limited seats</span>
           </div>
         </div>
       </div>
@@ -432,50 +493,50 @@
       <div class="faq">
         <div class="faq-item">
           <button class="faq-question" type="button">
-            <span data-i18n="faq1Q">How fast do I see results?</span>
+            <span data-i18n="faq1Q">Is this for beginners?</span>
             <span>+</span>
           </button>
-          <div class="faq-answer" data-i18n="faq1A">Most accounts notice uplift in 2-4 weeks of consistent posting.</div>
+          <div class="faq-answer" data-i18n="faq1A">Yes. We send simple scripts and angles you can film on your phone.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button">
-            <span data-i18n="faq2Q">Do you also film?</span>
+            <span data-i18n="faq2Q">Do I need editing skills?</span>
             <span>+</span>
           </button>
-          <div class="faq-answer" data-i18n="faq2A">You film on phone; we handle concepts, scripts, angles, captions, hashtags.</div>
+          <div class="faq-answer" data-i18n="faq2A">Basic phone editing is enough. We provide shot lists and captions.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button">
-            <span data-i18n="faq3Q">Which platforms?</span>
+            <span data-i18n="faq3Q">Is this real trends?</span>
             <span>+</span>
           </button>
-          <div class="faq-answer" data-i18n="faq3A">TikTok, Reels, Shorts. We can adapt for ads.</div>
+          <div class="faq-answer" data-i18n="faq3A">Yes. AI scans live data and humans verify — no recycled idea packs.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button">
-            <span data-i18n="faq4Q">Is there a contract?</span>
+            <span data-i18n="faq4Q">How often do I get ideas?</span>
             <span>+</span>
           </button>
-          <div class="faq-answer" data-i18n="faq4A">Month-to-month subscription. Cancel before the next cycle.</div>
+          <div class="faq-answer" data-i18n="faq4A">Choose weekly or daily drops. Month-to-month, cancel anytime.</div>
         </div>
       </div>
     </section>
 
     <section class="section animate" id="lead">
       <div class="cta-panel">
-        <h2 class="headline" data-i18n="finalTitle">Want to know what goes viral before everyone else?</h2>
-        <p class="lead" style="color:#c9e7da;" data-i18n="finalCopy">Drop your niche and number—our producer sends the hottest trends and a call slot.</p>
+        <h2 class="headline" data-i18n="finalTitle">Want viral ideas delivered before everyone else?</h2>
+        <p class="lead" style="color:#c9e7da;" data-i18n="finalCopy">Tell us your niche. We\'ll send a trend sample and a time to onboard.</p>
         <div class="actions-row">
-          <button class="btn-primary" data-i18n="finalCta" data-scroll="#lead-form">Book a call</button>
+          <button class="btn-primary" data-i18n="finalCta" data-scroll="#lead-form">Start subscription</button>
           <button class="btn-secondary" data-i18n="finalAlt" data-scroll="#lead-form">WhatsApp</button>
         </div>
       </div>
 
       <div class="lead-grid" style="margin-top:18px;">
         <div class="card" style="position:relative; overflow:hidden;">
-          <div class="limited" style="margin-bottom:10px;" data-i18n="leadBadge">WhatsApp signup</div>
-          <h3 data-i18n="leadTitle">Get on the list</h3>
-          <p class="subtle" data-i18n="leadCopy">Tell us your niche and WhatsApp—producer replies with a slot.</p>
+          <div class="limited" style="margin-bottom:10px;" data-i18n="leadBadge">Subscription waitlist</div>
+          <h3 data-i18n="leadTitle">Talk to a producer</h3>
+          <p class="subtle" data-i18n="leadCopy">Share your niche and WhatsApp — we send a sample drop and book your start.</p>
           <form id="lead-form" class="lead-form">
             <div class="input-row">
               <input type="text" name="name" placeholder="Name" data-i18n-placeholder="leadName" required />
@@ -504,85 +565,109 @@
         badge: 'AI',
         menuHow: 'How it works',
         menuExamples: 'Examples',
-        menuOffer: 'Offer',
+        menuOffer: 'Subscription',
         menuFaq: 'FAQ',
-        navCta: 'Book a Call',
-        eyebrow: 'AI radar for what\'s about to go viral',
-        headline: 'See what goes viral before it explodes.',
-        subtitle: 'BrandBooster AI scouts live trends and scripts video ideas so you can ride the wave first.',
-        chip1: 'Viral hooks & scripts',
-        chip2: 'Weekly drops by niche',
-        chip3: 'Captions + hashtags + thumbnails',
-        heroCtaPrimary: 'Book a Call',
-        heroCtaSecondary: 'See live trends',
+        menuWho: 'Who it\'s for',
+        navCta: 'Start subscription',
+        eyebrow: 'Real-time trend crew: AI + humans',
+        headline: 'Get viral video ideas every week. No SMM needed.',
+        subtitle: 'Monthly subscription that sends ready-to-film trends from AI + real producers.',
+        chip1: 'Subscription service',
+        chip2: 'AI + human curation',
+        chip3: 'Ready in 20 minutes',
+        heroCtaPrimary: 'Start subscription',
+        heroCtaSecondary: 'Book a call',
         metric1: 'views tracked daily',
-        metric2: 'hot topics in queue',
-        visualTag: 'Real-time feed',
-        trendTitle: 'Trend Feed',
-        trendDesc: 'AI picks topics with 70%+ viral probability',
+        metric2: 'fresh ideas queued',
+        metric3: 'real producers onboard',
+        visualTag: 'Live trend feed',
+        trendTitle: 'What we send you',
+        trendDesc: 'AI scores + human polish → shoot in minutes',
         trendLive: 'Live',
-        trend1Title: 'Glow-up behind the scenes',
-        trend1Subtitle: 'Hook + script + hashtags ready',
-        trend2Title: 'Micro-influencer collab',
-        trend2Subtitle: 'Shoot in 30 minutes',
-        trend3Title: 'Day-in-the-life challenge',
-        trend3Subtitle: 'Daily schedule provided',
-        vid1: 'Product teaser → viral',
-        vid2: 'Founder story → spike',
-        vid3: 'Challenge reel → trend',
+        trend1Title: 'High viral potential',
+        trend1Subtitle: 'Hook, script, angles, hashtags',
+        trend2Title: 'Ready-to-film today',
+        trend2Subtitle: 'Record on phone in 20 minutes',
+        trend3Title: 'Human-checked',
+        trend3Subtitle: 'No bots, no spammy automation',
+        vid1: 'Beginner creator → steady views',
+        vid2: 'Local brand → viral weekend',
+        vid3: 'Founder reels → consistent leads',
+        float1: 'AI scans trending audio hourly',
+        float2: 'Producers hand-pick and polish',
+        outcomeTitle: 'Why creators subscribe',
+        outcomeLead: 'Outcomes, not jargon. Each card is a promise we deliver with AI + human curation.',
+        outcome1: 'Never run out of ideas — fresh trends dropped weekly or daily.',
+        outcome2: 'Post like a pro without hiring one — scripts, hooks, captions done.',
+        outcome3: 'Stay ahead of trends — we send what\'s about to pop, not what already did.',
+        outcome4: 'Shoot content in 20 minutes — record on your phone with step-by-step angles.',
+        whoTitle: 'Who this is for',
+        whoLead: 'Designed for people who want growth without a full SMM hire.',
+        who1: 'Beginner creators wanting structure',
+        who1Desc: 'Clear hooks and scripts for your first consistent wins.',
+        who2: 'Small brands & shops',
+        who2Desc: 'Weekly ideas that turn viewers into foot traffic and orders.',
+        who3: 'Founders & experts',
+        who3Desc: 'Authority-building trend takes without an agency retainer.',
+        who4: 'Local businesses',
+        who4Desc: 'Simple phone-friendly shoots that highlight your services.',
         growthTitle: 'Growth examples',
-        growthLead: 'Full-width wins. Watch quiet accounts flip into buzzing channels.',
+        growthLead: 'Simple before → after proof. What happens when you post the ideas we send.',
         followers: 'Followers',
         views: 'Monthly views',
         growthNote: 'Influencer niches: beauty, fitness, DTC. Results depend on effort and niche.',
-        howTitle: 'How it works',
-        howLead: 'Minimal text, maximum clarity. Three moves to hit the trend while it\'s hot.',
-        step1Title: 'We scan your niche',
-        step1Desc: 'AI monitors viral audio, hooks, and formats in your category every morning.',
-        step2Title: 'We script & storyboard',
-        step2Desc: 'You get ready-to-film scripts, captions, CTAs, and thumbnail prompts.',
-        step3Title: 'You film, we optimize',
-        step3Desc: 'Upload drafts, we tweak for platform rules and schedule posting.',
+        howTitle: 'How the subscription works',
+        howLead: 'From “I need ideas” to “I post with confidence” in five short steps.',
+        step1Title: 'Subscribe',
+        step1Desc: 'Pick weekly or daily trend drops tailored to your niche.',
+        step2Title: 'AI scans, humans verify',
+        step2Desc: 'We score viral potential, then producers hand-pick what feels right.',
+        step3Title: 'You receive ready-to-film ideas',
+        step3Desc: 'Hooks, scripts, captions, thumbnails, and angles in one drop.',
+        step4Title: 'Shoot on your phone',
+        step4Desc: 'Record in 20 minutes. No studio, no gear, just clear direction.',
+        step5Title: 'Grow consistently',
+        step5Desc: 'We track performance and adjust the next drop based on wins.',
         credBadge: 'US-based video production',
         credTitle: 'Why trust us',
-        credLead: 'Logos, cases, and hard-won experience—built for brands that want proof.',
-        cred1: 'US-based video production team, real editors and producers.',
-        cred2: '10+ years in commercials, product launches, and brand storytelling.',
-        cred3: 'Documented cases with measurable ROI and retention.',
+        credLead: 'AI + human curation, not bots. Real producers behind every drop.',
+        cred1: 'AI + human producers curate each idea. No recycled scripts.',
+        cred2: '10+ years in content & video — US-based creative leads every drop.',
+        cred3: 'Cases with real numbers, not promises. Requests on call.',
         cred4: 'See our production site →',
-        offerTitle: 'Offer & CTA',
-        offerCopy: 'Monthly subscription, priced like a fast-food meal. Limited seats to keep quality high.',
+        offerTitle: 'Subscription plans',
+        offerCopy: 'Monthly subscription. Cancel anytime. Cheaper than hiring an SMM.',
         tagLite: 'Starter',
         planLite: 'Pulse access',
-        priceLite: '$19 / wk',
+        priceLite: '$89 / mo',
         lite1: 'Weekly viral trend drops',
         lite2: 'Scripts + captions + hashtags',
         lite3: 'Platform-ready thumbnails',
         offerSecondary: 'Get access',
         tagBest: 'Best value',
         planPro: 'Creator lift',
-        pricePro: '$59 / wk',
+        pricePro: '$219 / mo',
         pro1: 'Daily trend radar + alerts',
         pro2: 'Storyboard + edit feedback',
         pro3: 'Posting calendar & optimization',
         offerCta: 'Book a call',
-        offerHint: 'Limited spots',
+        offerHint: 'Limited seats',
         faqTitle: 'FAQ',
-        faq1Q: 'How fast do I see results?',
-        faq1A: 'Most accounts notice uplift in 2-4 weeks of consistent posting.',
-        faq2Q: 'Do you also film?',
-        faq2A: 'You film on phone; we handle concepts, scripts, angles, captions, hashtags.',
-        faq3Q: 'Which platforms?',
-        faq3A: 'TikTok, Reels, Shorts. We can adapt for ads.',
-        faq4Q: 'Is there a contract?',
-        faq4A: 'Month-to-month subscription. Cancel before the next cycle.',
-        finalTitle: 'Want to know what goes viral before everyone else?',
-        finalCopy: 'Drop your niche and number—our producer sends the hottest trends and a call slot.',
-        finalCta: 'Book a call',
+        faq1Q: 'Is this for beginners?',
+        faq1A: 'Yes. We send simple scripts and angles you can film on your phone.',
+        faq2Q: 'Do I need editing skills?',
+        faq2A: 'Basic phone editing is enough. We provide shot lists and captions.',
+        faq3Q: 'Is this real trends?',
+        faq3A: 'Yes. AI scans live data and humans verify — no recycled idea packs.',
+        faq4Q: 'How often do I get ideas?',
+        faq4A: 'Choose weekly or daily drops. Month-to-month, cancel anytime.',
+        finalTitle: 'Want viral ideas delivered before everyone else?',
+        finalCopy: 'Tell us your niche. We\'ll send a trend sample and a time to onboard.',
+        finalCta: 'Start subscription',
         finalAlt: 'WhatsApp',
-        leadBadge: 'WhatsApp signup',
-        leadTitle: 'Get on the list',
-        leadCopy: 'Tell us your niche and WhatsApp—producer replies with a slot.',
+        leadBadge: 'Subscription waitlist',
+        leadTitle: 'Talk to a producer',
+        leadCopy: 'Share your niche and WhatsApp — we send a sample drop and book your start.',
         leadName: 'Name',
         leadPhone: 'WhatsApp',
         leadNiche: 'Niche',
@@ -597,94 +682,118 @@
         badge: 'ИИ',
         menuHow: 'Как это работает',
         menuExamples: 'Примеры',
-        menuOffer: 'Оффер',
+        menuOffer: 'Подписка',
         menuFaq: 'FAQ',
-        navCta: 'Записаться',
-        eyebrow: 'ИИ-радар того, что вот-вот станет вирусным',
-        headline: 'Видеть тренд до того, как он взорвётся.',
-        subtitle: 'BrandBooster AI ловит живые тренды и пишет идеи роликов, чтобы вы первыми словили волну.',
-        chip1: 'Вирусные хуки и сценарии',
-        chip2: 'Еженедельные подборки под нишу',
-        chip3: 'Тексты, хэштеги, обложки',
-        heroCtaPrimary: 'Записаться',
-        heroCtaSecondary: 'Смотреть тренды',
+        menuWho: 'Для кого',
+        navCta: 'Запустить подписку',
+        eyebrow: 'Тренд-команда в реальном времени: ИИ + люди',
+        headline: 'Получайте идеи вирусных роликов каждую неделю. Без SMM-специалиста.',
+        subtitle: 'Месячная подписка: ИИ и продюсеры присылают готовые тренды для съёмки.',
+        chip1: 'Сервис по подписке',
+        chip2: 'ИИ + ручная модерация',
+        chip3: 'Готово за 20 минут',
+        heroCtaPrimary: 'Запустить подписку',
+        heroCtaSecondary: 'Назначить созвон',
         metric1: 'просмотров трекаем в день',
-        metric2: 'горячих тем в очереди',
-        visualTag: 'Лента в реальном времени',
-        trendTitle: 'Trend Feed',
-        trendDesc: 'ИИ выбирает темы с 70%+ шансом вирусности',
-        trendLive: 'В эфире',
-        trend1Title: 'Бэкстейдж-перевоплощение',
-        trend1Subtitle: 'Хук + сценарий + хэштеги готовы',
-        trend2Title: 'Коллаб с микроинфлюенсером',
-        trend2Subtitle: 'Съёмка за 30 минут',
-        trend3Title: 'Челлендж “день из жизни”',
-        trend3Subtitle: 'Даем расписание на день',
-        vid1: 'Тизер продукта → вирус',
-        vid2: 'История фаундера → всплеск',
-        vid3: 'Челлендж-ролик → тренд',
+        metric2: 'свежих идей в очереди',
+        metric3: 'живых продюсеров в команде',
+        visualTag: 'Лента трендов',
+        trendTitle: 'Что вы получаете',
+        trendDesc: 'ИИ оценивает, люди допиливают — можно снимать сразу',
+        trendLive: 'Сейчас',
+        trend1Title: 'С высоким шансом вирусности',
+        trend1Subtitle: 'Хук, сценарий, ракурсы, хэштеги',
+        trend2Title: 'Снимать сегодня',
+        trend2Subtitle: 'Запись на телефон за 20 минут',
+        trend3Title: 'Проверено людьми',
+        trend3Subtitle: 'Без ботов и спам-автоматики',
+        vid1: 'Новичок-блогер → стабильные просмотры',
+        vid2: 'Локальный бренд → вирусные выходные',
+        vid3: 'Рилсы фаундера → постоянные лиды',
+        float1: 'ИИ сканирует тренды по аудио каждый час',
+        float2: 'Продюсеры вручную отбирают и шлифуют',
+        outcomeTitle: 'Почему оформляют подписку',
+        outcomeLead: 'Результаты, а не термины. Каждая карточка — обещание, которое мы выполняем.',
+        outcome1: 'Идеи не заканчиваются — новые тренды каждую неделю или день.',
+        outcome2: 'Посты как у продакшена, без найма — хуки, сценарии, тексты готовы.',
+        outcome3: 'Опередите тренды — шлём то, что вот-вот выстрелит.',
+        outcome4: 'Съёмка за 20 минут — подробные шаги для телефона.',
+        whoTitle: 'Кому подойдёт',
+        whoLead: 'Для тех, кто хочет расти без полноценного SMM-штата.',
+        who1: 'Новички-креаторы, которым нужна структура',
+        who1Desc: 'Понятные хуки и сценарии для первых стабильных побед.',
+        who2: 'Небольшие бренды и магазины',
+        who2Desc: 'Еженедельные идеи, которые превращают просмотры в заказы.',
+        who3: 'Фаундеры и эксперты',
+        who3Desc: 'Трендовые темы для экспертизы без агентского гонорара.',
+        who4: 'Локальный бизнес',
+        who4Desc: 'Простые съёмки на телефон, чтобы показать услуги.',
         growthTitle: 'Примеры роста',
-        growthLead: 'Широкие победы: тихие аккаунты превращаются в активные.',
+        growthLead: 'Простая динамика “до → после”. Что бывает, когда постите то, что мы присылаем.',
         followers: 'Подписчики',
         views: 'Просмотры в месяц',
         growthNote: 'Ниши: бьюти, фитнес, DTC. Результат зависит от усилий и ниши.',
-        howTitle: 'Как это работает',
-        howLead: 'Минимум текста, максимум ясности. Три шага, чтобы поймать волну.',
-        step1Title: 'Сканируем вашу нишу',
-        step1Desc: 'ИИ каждое утро мониторит вирусные аудио, хуки и форматы.',
-        step2Title: 'Пишем и сторибордим',
-        step2Desc: 'Вы получаете сценарии, тексты, CTA и подсказки для обложек.',
-        step3Title: 'Вы снимаете, мы оптимизируем',
-        step3Desc: 'Грузите черновики — правим под правила площадок и ставим в график.',
+        howTitle: 'Как работает подписка',
+        howLead: 'От “нужны идеи” до “публикую уверенно” за пять коротких шагов.',
+        step1Title: 'Оформляете подписку',
+        step1Desc: 'Выбираете еженедельные или ежедневные выгрузки под вашу нишу.',
+        step2Title: 'ИИ сканирует, люди проверяют',
+        step2Desc: 'Считаем вирусный потенциал, продюсеры оставляют лучшее.',
+        step3Title: 'Получаете готовые идеи',
+        step3Desc: 'Хуки, сценарии, тексты, превью и ракурсы в одном пакете.',
+        step4Title: 'Снимаете на телефон',
+        step4Desc: '20 минут на съёмку. Без студии и сложной техники.',
+        step5Title: 'Растёте стабильно',
+        step5Desc: 'Смотрим на результаты и корректируем следующую выдачу.',
         credBadge: 'Продакшн из США',
         credTitle: 'Почему нам верят',
-        credLead: 'Логотипы, кейсы и опыт — для брендов, которым нужно доказательство.',
-        cred1: 'Команда из США: настоящие редакторы и продюсеры.',
-        cred2: '10+ лет в рекламе, запусках продуктов и сторителлинге брендов.',
-        cred3: 'Задокументированные кейсы с ROI и удержанием.',
+        credLead: 'ИИ + люди, никакого бота. За каждой подборкой стоят продюсеры.',
+        cred1: 'Идеи курируют продюсеры. Никаких повторов из пакетов.',
+        cred2: '10+ лет в контенте и видео — лиды из США ведут качество.',
+        cred3: 'Реальные цифры в кейсах. Покажем по запросу.',
         cred4: 'Сайт нашего продакшена →',
-        offerTitle: 'Оффер и CTA',
-        offerCopy: 'Подписка по цене фастфуда. Места ограничены ради качества.',
+        offerTitle: 'Тарифы подписки',
+        offerCopy: 'Месячная подписка. Отмена в любой момент. Дешевле, чем нанять SMM.',
         tagLite: 'Старт',
         planLite: 'Pulse доступ',
-        priceLite: '$19 / нед',
+        priceLite: '$89 / мес',
         lite1: 'Еженедельные тренды по нише',
-        lite2: 'Скрипты, описания и хэштеги',
-        lite3: 'Обложки под площадки',
+        lite2: 'Скрипты, тексты и хэштеги',
+        lite3: 'Превью под площадки',
         offerSecondary: 'Получить доступ',
         tagBest: 'Лучший выбор',
         planPro: 'Creator lift',
-        pricePro: '$59 / нед',
+        pricePro: '$219 / мес',
         pro1: 'Ежедневный радар + алерты',
-        pro2: 'Сториборд + правки монтажа',
+        pro2: 'Сториборд и правки монтажа',
         pro3: 'Календарь и оптимизация постинга',
-        offerCta: 'Записаться',
+        offerCta: 'Созвон',
         offerHint: 'Ограничено мест',
         faqTitle: 'FAQ',
-        faq1Q: 'Когда будут результаты?',
-        faq1A: 'Обычно рост заметен за 2–4 недели стабильных публикаций.',
-        faq2Q: 'Вы снимаете видео?',
-        faq2A: 'Вы снимаете на телефон; мы даём концепты, сценарии, ракурсы, тексты.',
-        faq3Q: 'Какие площадки?',
-        faq3A: 'TikTok, Reels, Shorts. Можем адаптировать под рекламу.',
-        faq4Q: 'Есть ли контракт?',
-        faq4A: 'Подписка помесячно. Можно отменить до следующего цикла.',
-        finalTitle: 'Хотите знать, что станет вирусным раньше всех?',
-        finalCopy: 'Напишите нишу и номер — продюсер пришлет горячие тренды и время созвона.',
-        finalCta: 'Записаться',
+        faq1Q: 'Подойдёт новичкам?',
+        faq1A: 'Да. Даём простые сценарии и ракурсы, снимаете на телефон.',
+        faq2Q: 'Нужны скиллы монтажа?',
+        faq2A: 'Достаточно базового редактирования. Прикладываем списки кадров и тексты.',
+        faq3Q: 'Это реальные тренды?',
+        faq3A: 'Да. ИИ собирает данные вживую, люди проверяют — без переработанных паков.',
+        faq4Q: 'Как часто приходят идеи?',
+        faq4A: 'По выбору: еженедельно или ежедневно. Помесячно, отмена в любой момент.',
+        finalTitle: 'Хотите получать идеи раньше остальных?',
+        finalCopy: 'Сообщите нишу. Пришлём пробный тренд и время для онбординга.',
+        finalCta: 'Запустить подписку',
         finalAlt: 'WhatsApp',
-        leadBadge: 'Заявка в WhatsApp',
-        leadTitle: 'Попасть в лист',
-        leadCopy: 'Сообщите нишу и WhatsApp — продюсер ответит со слотом.',
+        leadBadge: 'Лист ожидания',
+        leadTitle: 'Созвон с продюсером',
+        leadCopy: 'Напишите нишу и WhatsApp — отправим пример выдачи и назначим старт.',
         leadName: 'Имя',
         leadPhone: 'WhatsApp',
         leadNiche: 'Ниша',
         leadCta: 'Отправить в WhatsApp',
         leadNote: 'Отвечаем до 24 часов. Никакого спама.',
         visualCTA: 'Смотреть кейсы',
-        visualCTACopy: 'Короткий тур по дашборду, ленте трендов и кейсам.',
+        visualCTACopy: 'Короткий тур по ленте трендов и свежим победам.',
         visualCtaBtn: 'Смотреть примеры',
-        visualCtaCall: 'Записаться'
+        visualCtaCall: 'Созвон'
       }
     };
 
