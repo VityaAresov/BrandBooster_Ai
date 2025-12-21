@@ -6,19 +6,22 @@
   <title>BrandBooster AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f7f9fb;
-      --card: #ffffff;
+      --bg: #f6f8fb;
+      --bg-2: #ecf1ff;
+      --card: rgba(255, 255, 255, 0.85);
       --text: #0f172a;
       --muted: #475569;
       --accent: #38f391;
-      --accent-strong: #1ee682;
+      --accent-strong: #12e37c;
       --border: #e2e8f0;
-      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      --shadow: 0 25px 80px rgba(15, 23, 42, 0.08);
       --radius: 18px;
-      --transition: all 0.25s ease;
+      --glow: 0 20px 50px rgba(56, 243, 145, 0.35);
+      --blur: 16px;
+      --transition: all 0.28s ease;
     }
 
     * { box-sizing: border-box; }
@@ -26,7 +29,9 @@
     body {
       margin: 0;
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
+      background: radial-gradient(circle at 20% 20%, rgba(56, 243, 145, 0.08), transparent 35%),
+                  radial-gradient(circle at 80% 0%, rgba(86, 225, 255, 0.08), transparent 32%),
+                  linear-gradient(180deg, #f8fafc 0%, #edf2ff 100%);
       color: var(--text);
       line-height: 1.6;
       letter-spacing: -0.01em;
@@ -36,315 +41,181 @@
     a { color: inherit; text-decoration: none; }
     ul { padding: 0; margin: 0; list-style: none; }
 
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
-    }
+    .page { max-width: 1200px; margin: 0 auto; padding: 0 20px 64px; position: relative; }
 
     header {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(247, 249, 251, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      z-index: 40;
+      backdrop-filter: blur(var(--blur));
+      background: rgba(246, 248, 251, 0.78);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.7);
     }
 
     .nav {
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      justify-content: space-between;
+      gap: 16px;
       padding: 14px 0;
-      gap: 16px;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 18px;
-    }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+    .logo-badge { padding: 6px 10px; background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: #052018; border-radius: 999px; font-size: 12px; font-weight: 800; box-shadow: var(--glow); }
 
-    .logo-badge {
-      padding: 6px 10px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-      color: #0d1b2a;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      box-shadow: 0 10px 30px rgba(56, 243, 145, 0.35);
-    }
-
-    nav ul {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      padding: 10px 12px;
-      border-radius: 12px;
-      color: var(--muted);
-      font-weight: 500;
-      transition: var(--transition);
-    }
-
+    nav ul { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: center; }
+    nav a { padding: 10px 12px; border-radius: 12px; color: var(--muted); font-weight: 600; transition: var(--transition); }
     nav a:hover { color: var(--text); background: rgba(56, 243, 145, 0.12); }
 
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .actions { display: flex; align-items: center; gap: 10px; }
 
-    .lang-switch {
-      display: inline-flex;
-      padding: 6px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      gap: 6px;
-    }
-
-    .lang-switch button {
-      border: none;
-      background: transparent;
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-weight: 600;
-      color: var(--muted);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .lang-switch button.active {
-      background: var(--text);
-      color: #fff;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
-    }
+    .lang-switch { display: inline-flex; padding: 6px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); gap: 6px; }
+    .lang-switch button { border: none; background: transparent; padding: 8px 12px; border-radius: 10px; font-weight: 700; color: var(--muted); cursor: pointer; transition: var(--transition); }
+    .lang-switch button.active { background: var(--text); color: #fff; box-shadow: 0 14px 32px rgba(15, 23, 42, 0.2); }
 
     .btn-primary {
       background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-      color: #05241a;
+      color: #031811;
       border: none;
-      padding: 12px 16px;
+      padding: 12px 18px;
       border-radius: 14px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 15px 40px rgba(56, 243, 145, 0.32);
+      box-shadow: var(--glow);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
+    .btn-primary:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 30px 60px rgba(56, 243, 145, 0.4); }
 
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 22px 50px rgba(56, 243, 145, 0.4); }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid var(--border);
-      padding: 12px 16px;
-      border-radius: 14px;
-      font-weight: 700;
-      color: var(--text);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .btn-secondary:hover { border-color: var(--text); }
+    .btn-secondary { background: rgba(255,255,255,0.6); border: 1px solid var(--border); padding: 12px 16px; border-radius: 14px; font-weight: 800; color: var(--text); cursor: pointer; transition: var(--transition); backdrop-filter: blur(8px); }
+    .btn-secondary:hover { border-color: var(--text); transform: translateY(-2px); }
 
     .hero {
       display: grid;
-      gap: 24px;
-      margin: 48px 0 32px;
-    }
-
-    .hero-content {
-      display: grid;
-      gap: 18px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 12px;
-      background: rgba(56, 243, 145, 0.14);
-      color: #045233;
-      font-weight: 600;
-    }
-
-    .headline {
-      font-size: clamp(32px, 6vw, 46px);
-      line-height: 1.15;
-      margin: 0;
-      letter-spacing: -0.02em;
-    }
-
-    .subtitle {
-      font-size: 17px;
-      color: var(--muted);
-      margin: 0;
-      max-width: 580px;
-    }
-
-    .benefits { display: grid; gap: 12px; }
-
-    .benefit {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 12px 14px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-    }
-
-    .benefit:hover { transform: translateY(-2px); }
-
-    .benefit-icon {
-      width: 12px;
-      height: 12px;
-      margin-top: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(56, 243, 145, 0.18);
-    }
-
-    .hero-visual {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 18px;
-      box-shadow: var(--shadow);
+      gap: 28px;
+      margin: 48px 0 40px;
       position: relative;
-      overflow: hidden;
     }
 
-    .hero-visual::after {
+    .hero::before {
       content: '';
       position: absolute;
-      inset: -30% 40% auto auto;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle at center, rgba(56, 243, 145, 0.35), transparent 60%);
-      filter: blur(30px);
-      opacity: 0.7;
-      animation: pulse 6s ease-in-out infinite;
+      inset: -40px -80px -30px -80px;
+      background: linear-gradient(135deg, rgba(56, 243, 145, 0.08), rgba(86, 131, 255, 0.08));
+      filter: blur(60px);
+      z-index: -1;
     }
 
-    @keyframes pulse { 0%, 100% { transform: scale(1);} 50% { transform: scale(1.1);} }
+    .hero-grid { display: grid; gap: 20px; }
 
-    .trend-card {
-      background: linear-gradient(145deg, #0b1526, #0f1f36);
-      color: #e2f7ee;
-      border-radius: 16px;
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 14px; background: rgba(56, 243, 145, 0.18); color: #05422f; font-weight: 700; box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); }
+    .spark { width: 10px; height: 10px; background: var(--accent-strong); border-radius: 50%; box-shadow: 0 0 0 6px rgba(56, 243, 145, 0.2); }
+
+    .headline { font-size: clamp(34px, 6vw, 56px); line-height: 1.1; margin: 0; letter-spacing: -0.03em; }
+    .subtitle { font-size: 18px; color: var(--muted); margin: 4px 0 14px; max-width: 640px; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip { background: rgba(255,255,255,0.65); border: 1px solid rgba(226, 232, 240, 0.9); padding: 10px 12px; border-radius: 12px; font-weight: 600; color: var(--text); backdrop-filter: blur(8px); box-shadow: var(--shadow); }
+
+    .actions-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+    .metric-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+    .metric { background: rgba(17, 24, 39, 0.9); color: #e7fff4; padding: 12px 14px; border-radius: 14px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 20px 50px rgba(12, 26, 47, 0.4); }
+    .metric strong { font-size: 18px; }
+    .badge { padding: 6px 10px; border-radius: 999px; background: rgba(56, 243, 145, 0.15); color: #12e37c; font-weight: 700; border: 1px solid rgba(56, 243, 145, 0.4); }
+
+    .hero-visual {
+      position: relative;
+      background: radial-gradient(circle at 20% 10%, rgba(56, 243, 145, 0.28), transparent 45%),
+                  linear-gradient(145deg, #0d1427, #0f213d);
+      border-radius: 24px;
       padding: 18px;
-      box-shadow: 0 20px 40px rgba(7, 15, 30, 0.45);
-      display: grid;
-      gap: 12px;
+      overflow: hidden;
+      box-shadow: 0 30px 70px rgba(7, 15, 30, 0.55);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #e8f7ff;
+      min-height: 360px;
     }
 
-    .trend-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
+    .glass-tag { position: absolute; top: 18px; right: 18px; padding: 8px 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; backdrop-filter: blur(8px); font-weight: 700; }
 
-    .trend-badge { background: rgba(56, 243, 145, 0.18); color: #5effa8; padding: 6px 10px; border-radius: 12px; font-weight: 700; }
+    .visual-grid { display: grid; gap: 12px; position: relative; }
+    .trend-card { background: rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 14px; display: grid; gap: 10px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
+    .trend-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .trend-title { font-weight: 800; }
     .trend-items { display: grid; gap: 10px; }
-    .trend-item { padding: 12px; background: rgba(255, 255, 255, 0.06); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .trend-item { padding: 10px; border-radius: 12px; background: rgba(0,0,0,0.18); display: flex; justify-content: space-between; align-items: center; }
     .trend-item strong { color: #fff; }
-    .trend-item span { color: #92a8c6; }
+    .trend-item span { color: #a3b8d6; font-weight: 600; }
 
-    .actions-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .video-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+    .video-card { background: rgba(255,255,255,0.07); border-radius: 14px; padding: 10px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); display: grid; gap: 8px; }
+    .thumb { border-radius: 12px; background: linear-gradient(135deg, #1d2f4d, #284a78); height: 90px; position: relative; overflow: hidden; }
+    .thumb::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(56, 243, 145, 0.2), transparent 60%); }
+    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: rgba(56, 243, 145, 0.16); color: #8effc4; font-weight: 700; font-size: 13px; }
 
-    .section { margin: 40px 0; }
-    .section h2 { margin: 0 0 12px; font-size: 26px; letter-spacing: -0.02em; }
-    .section p.lead { margin: 0 0 18px; color: var(--muted); }
+    .floating { position: absolute; inset: auto 12px 14px auto; display: flex; flex-direction: column; gap: 10px; }
+    .float-card { background: rgba(255,255,255,0.12); border-radius: 14px; padding: 12px; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.16); }
 
-    .cards-grid { display: grid; gap: 14px; }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-    }
+    .section { margin: 48px 0; position: relative; }
+    .section h2 { margin: 0 0 12px; font-size: 28px; letter-spacing: -0.02em; }
+    .section .lead { margin: 0 0 18px; color: var(--muted); max-width: 720px; }
 
-    .card:hover { transform: translateY(-2px); }
+    .grid-3 { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .grid-2 { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 
-    .growth-stats { display: grid; gap: 12px; }
-    .growth-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: center; }
-    .growth-number { font-size: 28px; font-weight: 800; color: #0f172a; }
-    .growth-number small { color: var(--muted); display: block; font-size: 12px; }
-    .arrow { text-align: center; font-size: 20px; color: var(--accent-strong); }
+    .card { background: var(--card); border: 1px solid rgba(226, 232, 240, 0.9); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); transition: var(--transition); backdrop-filter: blur(10px); }
+    .card:hover { transform: translateY(-3px); }
 
-    .steps { display: grid; gap: 12px; }
-    .step { display: grid; gap: 6px; }
-    .step-number { width: 34px; height: 34px; border-radius: 12px; background: rgba(56, 243, 145, 0.16); color: #05422f; display: grid; place-items: center; font-weight: 800; }
+    .growth-panel { background: linear-gradient(135deg, #0c1a2f, #0f243f); color: #e8fff4; border-radius: 18px; padding: 20px; display: grid; gap: 14px; box-shadow: 0 30px 70px rgba(12, 26, 47, 0.5); position: relative; overflow: hidden; }
+    .growth-panel::after { content: ''; position: absolute; width: 220px; height: 220px; background: radial-gradient(circle at center, rgba(56, 243, 145, 0.35), transparent 60%); filter: blur(26px); right: -40px; top: -60px; }
+    .growth-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; align-items: center; position: relative; z-index: 1; }
+    .growth-number { font-size: 30px; font-weight: 800; color: #f3fff9; }
+    .growth-number small { display: block; color: #9bc2b2; font-size: 13px; }
+    .growth-arrow { text-align: center; font-size: 22px; color: #6bffb1; }
 
-    .cred-list { display: grid; gap: 10px; }
-    .offer {
-      display: grid;
-      gap: 10px;
-      background: linear-gradient(135deg, #0c1a2f, #0f243d);
-      color: #e9fff3;
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 20px 50px rgba(12, 26, 47, 0.45);
-    }
+    .platforms { display: flex; flex-wrap: wrap; gap: 10px; }
+    .platform { background: rgba(255,255,255,0.7); border: 1px solid var(--border); border-radius: 12px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; box-shadow: var(--shadow); }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .ig { background: linear-gradient(135deg, #fdc468, #df4996); }
+    .tt { background: linear-gradient(135deg, #25f4ee, #fe2c55); }
+    .yt { background: #ff3d3d; }
+
+    .steps { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .step { display: grid; gap: 10px; }
+    .step-icon { width: 44px; height: 44px; border-radius: 14px; background: rgba(56, 243, 145, 0.16); color: #05422f; display: grid; place-items: center; font-weight: 800; }
+
+    .cred-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); align-items: stretch; }
+    .cred-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 14px; background: rgba(56, 243, 145, 0.16); color: #05422f; font-weight: 800; width: fit-content; }
+    .logo-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .logo-placeholder { flex: 1; min-width: 120px; height: 58px; border-radius: 12px; background: rgba(255,255,255,0.7); border: 1px dashed #cbd5e1; display: grid; place-items: center; color: #475569; font-weight: 700; box-shadow: var(--shadow); }
+
+    .pricing { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .price-card { position: relative; overflow: hidden; }
+    .price-card .tag { position: absolute; top: 12px; right: 12px; padding: 6px 10px; background: rgba(56, 243, 145, 0.16); border-radius: 999px; font-weight: 800; color: #065f3c; }
+    .price { font-size: 28px; font-weight: 800; margin: 4px 0 10px; }
+    .limited { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; background: rgba(255,255,255,0.7); border: 1px solid var(--border); border-radius: 12px; font-weight: 700; }
 
     .faq { display: grid; gap: 10px; }
-    .faq-item { border: 1px solid var(--border); border-radius: 14px; background: var(--card); overflow: hidden; }
-    .faq-question {
-      width: 100%;
-      text-align: left;
-      border: none;
-      background: transparent;
-      padding: 14px;
-      font-weight: 700;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-    }
+    .faq-item { border: 1px solid var(--border); border-radius: 14px; background: var(--card); overflow: hidden; box-shadow: var(--shadow); }
+    .faq-question { width: 100%; text-align: left; border: none; background: transparent; padding: 14px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
     .faq-answer { padding: 0 14px 14px; color: var(--muted); display: none; }
     .faq-item.active .faq-answer { display: block; }
 
-    .lead-form {
-      display: grid;
-      gap: 12px;
-    }
+    .lead-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .lead-form { display: grid; gap: 12px; }
     .input-row { display: grid; gap: 10px; }
-    input, select, textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: #fff;
-      font-size: 15px;
-      font-family: inherit;
-      transition: var(--transition);
-    }
+    input, select, textarea { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: #fff; font-size: 15px; font-family: inherit; transition: var(--transition); }
     input:focus, select:focus, textarea:focus { outline: 2px solid rgba(56, 243, 145, 0.4); }
 
-    .subtle { color: var(--muted); font-size: 14px; }
+    .cta-panel { background: linear-gradient(135deg, #0c1d33, #0b2b49); color: #e7fff5; border-radius: 18px; padding: 22px; display: grid; gap: 14px; box-shadow: 0 30px 70px rgba(12, 26, 47, 0.5); position: relative; overflow: hidden; }
+    .cta-panel::after { content: ''; position: absolute; width: 200px; height: 200px; background: radial-gradient(circle, rgba(56, 243, 145, 0.38), transparent 60%); filter: blur(22px); right: -30px; bottom: -60px; }
+    .cta-panel .headline { font-size: clamp(28px, 5vw, 38px); }
 
-    @media (min-width: 900px) {
-      .hero { grid-template-columns: 1.1fr 0.9fr; align-items: center; }
-      .growth-stats { grid-template-columns: repeat(3, 1fr); }
-      .cards-grid { grid-template-columns: repeat(3, 1fr); }
-      .steps { grid-template-columns: repeat(3, 1fr); }
-      .faq { grid-template-columns: repeat(2, 1fr); }
-      .lead-grid { grid-template-columns: 1.1fr 0.9fr; gap: 18px; }
-    }
+    .subtle { color: var(--muted); font-size: 14px; }
+    .muted-light { color: #a7c0e3; }
+
+    .animate { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .animate.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
@@ -367,117 +238,154 @@
           <button class="active" data-lang="en">EN</button>
           <button data-lang="ru">RU</button>
         </div>
-        <button class="btn-primary" data-i18n="navCta" data-scroll="#lead">Get Boost</button>
+        <button class="btn-primary" data-i18n="navCta" data-scroll="#lead">Book a Call</button>
       </div>
     </div>
   </header>
 
   <main class="page">
-    <section class="hero">
-      <div class="hero-content">
-        <span class="eyebrow" data-i18n="eyebrow">Social brands, accelerated</span>
-        <h1 class="headline" data-i18n="headline">Want a social media boost?</h1>
-        <p class="subtitle" data-i18n="subtitle">Our AI scouts viral trends and scripts short videos so your brand stays ahead of every conversation.</p>
+    <section class="hero animate">
+      <div class="hero-grid">
+        <span class="eyebrow"><span class="spark"></span><span data-i18n="eyebrow">AI radar for what's about to go viral</span></span>
+        <h1 class="headline" data-i18n="headline">See what goes viral before it explodes.</h1>
+        <p class="subtitle" data-i18n="subtitle">BrandBooster AI scouts live trends and scripts video ideas so you can ride the wave first.</p>
 
-        <div class="benefits">
-          <div class="benefit">
-            <div class="benefit-icon"></div>
-            <div data-i18n="benefit1">Fresh weekly hooks tailored to your niche.</div>
-          </div>
-          <div class="benefit">
-            <div class="benefit-icon"></div>
-            <div data-i18n="benefit2">Optimized scripts, captions, thumbnails & hashtags.</div>
-          </div>
-          <div class="benefit">
-            <div class="benefit-icon"></div>
-            <div data-i18n="benefit3">Publishing calendar that keeps you consistent.</div>
-          </div>
+        <div class="chips">
+          <span class="chip" data-i18n="chip1">Viral hooks & scripts</span>
+          <span class="chip" data-i18n="chip2">Weekly drops by niche</span>
+          <span class="chip" data-i18n="chip3">Captions + hashtags + thumbnails</span>
         </div>
 
         <div class="actions-row">
-          <button class="btn-primary" data-i18n="heroCtaPrimary" data-scroll="#lead">Subscribe</button>
-          <button class="btn-secondary" data-i18n="heroCtaSecondary" data-scroll="#examples">See examples</button>
+          <button class="btn-primary" data-i18n="heroCtaPrimary" data-scroll="#lead">Book a Call</button>
+          <button class="btn-secondary" data-i18n="heroCtaSecondary" data-scroll="#examples">See live trends</button>
+          <div class="platforms">
+            <span class="platform"><span class="dot ig"></span>Instagram</span>
+            <span class="platform"><span class="dot tt"></span>TikTok</span>
+            <span class="platform"><span class="dot yt"></span>YouTube Shorts</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric">
+            <strong data-animate="320">320k</strong>
+            <span class="badge" data-i18n="metric1">views tracked daily</span>
+          </div>
+          <div class="metric">
+            <strong data-animate="72">72</strong>
+            <span class="badge" data-i18n="metric2">hot topics in queue</span>
+          </div>
         </div>
       </div>
 
-      <div class="hero-visual" aria-label="Trend feed preview">
-        <div class="trend-card">
-          <div class="trend-header">
-            <div>
-              <div style="font-weight:700;">Trend Feed</div>
-              <div style="color:#93abc9; font-size:13px;" data-i18n="trendDesc">AI picks topics with 70%+ viral probability</div>
+      <div class="hero-visual animate" aria-label="AI trend radar">
+        <div class="glass-tag" data-i18n="visualTag">Real-time feed</div>
+        <div class="visual-grid">
+          <div class="trend-card">
+            <div class="trend-header">
+              <div>
+                <div class="trend-title" data-i18n="trendTitle">Trend Feed</div>
+                <div class="muted-light" style="font-size:13px;" data-i18n="trendDesc">AI picks topics with 70%+ viral probability</div>
+              </div>
+              <span class="pill" data-i18n="trendLive">Live</span>
             </div>
-            <span class="trend-badge" data-i18n="trendLive">Live</span>
+            <div class="trend-items">
+              <div class="trend-item">
+                <div>
+                  <strong data-i18n="trend1Title">Glow-up behind the scenes</strong>
+                  <div style="font-size:13px;" data-i18n="trend1Subtitle">Hook + script + hashtags ready</div>
+                </div>
+                <span>48k ▶</span>
+              </div>
+              <div class="trend-item">
+                <div>
+                  <strong data-i18n="trend2Title">Micro-influencer collab</strong>
+                  <div style="font-size:13px;" data-i18n="trend2Subtitle">Shoot in 30 minutes</div>
+                </div>
+                <span>72k ▶</span>
+              </div>
+              <div class="trend-item">
+                <div>
+                  <strong data-i18n="trend3Title">Day-in-the-life challenge</strong>
+                  <div style="font-size:13px;" data-i18n="trend3Subtitle">Daily schedule provided</div>
+                </div>
+                <span>91k ▶</span>
+              </div>
+            </div>
           </div>
-          <div class="trend-items">
-            <div class="trend-item">
-              <div>
-                <strong data-i18n="trend1Title">"Behind the scenes" glow-up</strong>
-                <div style="font-size:13px;" data-i18n="trend1Subtitle">Hook + script + hashtags ready</div>
-              </div>
-              <span>48k ▶</span>
+
+          <div class="video-strip">
+            <div class="video-card">
+              <div class="thumb"></div>
+              <div class="pill">+248k views</div>
+              <div class="muted-light" data-i18n="vid1">Product teaser → viral</div>
             </div>
-            <div class="trend-item">
-              <div>
-                <strong data-i18n="trend2Title">Micro-influencer collab</strong>
-                <div style="font-size:13px;" data-i18n="trend2Subtitle">Shoot in 30 minutes</div>
-              </div>
-              <span>72k ▶</span>
+            <div class="video-card">
+              <div class="thumb"></div>
+              <div class="pill">+780% growth</div>
+              <div class="muted-light" data-i18n="vid2">Founder story → spike</div>
             </div>
-            <div class="trend-item">
-              <div>
-                <strong data-i18n="trend3Title">Day-in-the-life challenge</strong>
-                <div style="font-size:13px;" data-i18n="trend3Subtitle">Daily schedule provided</div>
-              </div>
-              <span>91k ▶</span>
+            <div class="video-card">
+              <div class="thumb"></div>
+              <div class="pill">+1.2M views</div>
+              <div class="muted-light" data-i18n="vid3">Challenge reel → trend</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="examples">
+    <section class="section animate" id="examples">
       <h2 data-i18n="growthTitle">Growth examples</h2>
-      <p class="lead" data-i18n="growthLead">Real accounts that moved from quiet to buzzing within weeks.</p>
-      <div class="growth-stats card">
+      <p class="lead" data-i18n="growthLead">Full-width wins. Watch quiet accounts flip into buzzing channels.</p>
+      <div class="growth-panel">
         <div class="growth-row">
-          <div class="growth-number">3.1k → 24.8k<small data-i18n="followers">Followers</small></div>
-          <div class="arrow">⬈</div>
-          <div class="growth-number">18k → 640k<small data-i18n="views">Monthly views</small></div>
+          <div class="growth-number"><span data-animate="3100">3.1k</span> → <span data-animate="24800">24.8k</span><small data-i18n="followers">Followers</small></div>
+          <div class="growth-arrow">⬈</div>
+          <div class="growth-number"><span data-animate="18000">18k</span> → <span data-animate="640000">640k</span><small data-i18n="views">Monthly views</small></div>
         </div>
         <div class="growth-row">
-          <div class="growth-number">9.4k → 52k<small data-i18n="followers">Followers</small></div>
-          <div class="arrow">⬈</div>
-          <div class="growth-number">42k → 1.1M<small data-i18n="views">Monthly views</small></div>
+          <div class="growth-number"><span data-animate="9400">9.4k</span> → <span data-animate="52000">52k</span><small data-i18n="followers">Followers</small></div>
+          <div class="growth-arrow">⬈</div>
+          <div class="growth-number"><span data-animate="42000">42k</span> → <span data-animate="1100000">1.1M</span><small data-i18n="views">Monthly views</small></div>
         </div>
-        <div class="subtle" data-i18n="growthNote">Influencer niches: beauty, fitness, DTC products. Results depend on effort and niche.</div>
+        <div class="subtle" data-i18n="growthNote">Influencer niches: beauty, fitness, DTC. Results depend on effort and niche.</div>
       </div>
     </section>
 
-    <section class="section" id="how">
+    <section class="section animate" id="how">
       <h2 data-i18n="howTitle">How it works</h2>
-      <div class="steps cards-grid">
+      <p class="lead" data-i18n="howLead">Minimal text, maximum clarity. Three moves to hit the trend while it's hot.</p>
+      <div class="steps">
         <div class="card step">
-          <div class="step-number">1</div>
+          <div class="step-icon">1</div>
           <strong data-i18n="step1Title">We scan your niche</strong>
           <p class="subtle" data-i18n="step1Desc">AI monitors viral audio, hooks, and formats in your category every morning.</p>
         </div>
         <div class="card step">
-          <div class="step-number">2</div>
+          <div class="step-icon">2</div>
           <strong data-i18n="step2Title">We script & storyboard</strong>
           <p class="subtle" data-i18n="step2Desc">You get ready-to-film scripts, captions, CTAs, and thumbnail prompts.</p>
         </div>
         <div class="card step">
-          <div class="step-number">3</div>
+          <div class="step-icon">3</div>
           <strong data-i18n="step3Title">You film, we optimize</strong>
           <p class="subtle" data-i18n="step3Desc">Upload drafts, we tweak for platform rules and schedule posting.</p>
         </div>
       </div>
     </section>
 
-    <section class="section" id="cred">
+    <section class="section animate" id="cred">
+      <div class="cred-badge" data-i18n="credBadge">US-based video production</div>
       <h2 data-i18n="credTitle">Why trust us</h2>
-      <div class="cards-grid cred-list">
+      <div class="lead" data-i18n="credLead">Logos, cases, and hard-won experience—built for brands that want proof.</div>
+      <div class="logo-row">
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+      </div>
+      <div class="cred-grid">
         <div class="card" data-i18n="cred1">US-based video production team, real editors and producers.</div>
         <div class="card" data-i18n="cred2">10+ years in commercials, product launches, and brand storytelling.</div>
         <div class="card" data-i18n="cred3">Documented cases with measurable ROI and retention.</div>
@@ -485,16 +393,41 @@
       </div>
     </section>
 
-    <section class="section offer" id="offer">
-      <h2 data-i18n="offerTitle">Offer</h2>
-      <div data-i18n="offerCopy">Monthly subscription, priced like a fast-food meal. Limited client seats to keep quality high.</div>
-      <div class="actions-row">
-        <button class="btn-primary" data-i18n="offerCta" data-scroll="#lead">Claim a spot</button>
-        <span class="subtle" data-i18n="offerHint">Only 7 slots open this month.</span>
+    <section class="section animate" id="offer">
+      <h2 data-i18n="offerTitle">Offer & CTA</h2>
+      <p class="lead" data-i18n="offerCopy">Monthly subscription, priced like a fast-food meal. Limited seats to keep quality high.</p>
+      <div class="pricing">
+        <div class="card price-card">
+          <div class="tag" data-i18n="tagLite">Starter</div>
+          <h3 data-i18n="planLite">Pulse access</h3>
+          <div class="price" data-i18n="priceLite">$19 / wk</div>
+          <ul>
+            <li data-i18n="lite1">Weekly viral trend drops</li>
+            <li data-i18n="lite2">Scripts + captions + hashtags</li>
+            <li data-i18n="lite3">Platform-ready thumbnails</li>
+          </ul>
+          <div class="actions-row" style="margin-top:12px;">
+            <button class="btn-secondary" data-i18n="offerSecondary" data-scroll="#lead">Get access</button>
+          </div>
+        </div>
+        <div class="card price-card" style="border-color: rgba(56,243,145,0.6); box-shadow: 0 30px 70px rgba(56, 243, 145, 0.3);">
+          <div class="tag" data-i18n="tagBest">Best value</div>
+          <h3 data-i18n="planPro">Creator lift</h3>
+          <div class="price" data-i18n="pricePro">$59 / wk</div>
+          <ul>
+            <li data-i18n="pro1">Daily trend radar + alerts</li>
+            <li data-i18n="pro2">Storyboard + edit feedback</li>
+            <li data-i18n="pro3">Posting calendar & optimization</li>
+          </ul>
+          <div class="actions-row" style="margin-top:12px;">
+            <button class="btn-primary" data-i18n="offerCta" data-scroll="#lead">Book a call</button>
+            <span class="limited" data-i18n="offerHint">Limited spots</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="section" id="faq">
+    <section class="section animate" id="faq">
       <h2 data-i18n="faqTitle">FAQ</h2>
       <div class="faq">
         <div class="faq-item">
@@ -516,41 +449,52 @@
             <span data-i18n="faq3Q">Which platforms?</span>
             <span>+</span>
           </button>
-          <div class="faq-answer" data-i18n="faq3A">TikTok, Instagram Reels, YouTube Shorts. We can also adapt for ads.</div>
+          <div class="faq-answer" data-i18n="faq3A">TikTok, Reels, Shorts. We can adapt for ads.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button">
             <span data-i18n="faq4Q">Is there a contract?</span>
             <span>+</span>
           </button>
-          <div class="faq-answer" data-i18n="faq4A">Monthly subscription. Cancel anytime before the next cycle.</div>
+          <div class="faq-answer" data-i18n="faq4A">Month-to-month subscription. Cancel before the next cycle.</div>
         </div>
       </div>
     </section>
 
-    <section class="section lead-grid" id="lead">
-      <div>
-        <h2 data-i18n="leadTitle">WhatsApp signup</h2>
-        <p class="lead" data-i18n="leadCopy">Tell us your niche and number—our producer will message you with the next available slot.</p>
-      </div>
-      <form class="card lead-form" id="lead-form">
-        <div class="input-row">
-          <label>
-            <span data-i18n="leadName">Name</span>
-            <input name="name" type="text" placeholder="Alex" />
-          </label>
-          <label>
-            <span data-i18n="leadPhone">WhatsApp number</span>
-            <input name="phone" type="tel" placeholder="+1 555 123 4567" />
-          </label>
-          <label>
-            <span data-i18n="leadNiche">Niche</span>
-            <input name="niche" type="text" placeholder="Beauty, fitness, fintech..." />
-          </label>
+    <section class="section animate" id="lead">
+      <div class="cta-panel">
+        <h2 class="headline" data-i18n="finalTitle">Want to know what goes viral before everyone else?</h2>
+        <p class="lead" style="color:#c9e7da;" data-i18n="finalCopy">Drop your niche and number—our producer sends the hottest trends and a call slot.</p>
+        <div class="actions-row">
+          <button class="btn-primary" data-i18n="finalCta" data-scroll="#lead-form">Book a call</button>
+          <button class="btn-secondary" data-i18n="finalAlt" data-scroll="#lead-form">WhatsApp</button>
         </div>
-        <button class="btn-primary" type="submit" data-i18n="leadCta">Book via WhatsApp</button>
-        <div class="subtle" data-i18n="leadNote">We reply within 24 hours. Zero spam.</div>
-      </form>
+      </div>
+
+      <div class="lead-grid" style="margin-top:18px;">
+        <div class="card" style="position:relative; overflow:hidden;">
+          <div class="limited" style="margin-bottom:10px;" data-i18n="leadBadge">WhatsApp signup</div>
+          <h3 data-i18n="leadTitle">Get on the list</h3>
+          <p class="subtle" data-i18n="leadCopy">Tell us your niche and WhatsApp—producer replies with a slot.</p>
+          <form id="lead-form" class="lead-form">
+            <div class="input-row">
+              <input type="text" name="name" placeholder="Name" data-i18n-placeholder="leadName" required />
+              <input type="text" name="phone" placeholder="WhatsApp" data-i18n-placeholder="leadPhone" required />
+              <input type="text" name="niche" placeholder="Niche" data-i18n-placeholder="leadNiche" />
+            </div>
+            <button type="submit" class="btn-primary" data-i18n="leadCta">Send via WhatsApp</button>
+            <div class="subtle" data-i18n="leadNote">Replies within 24h. Zero spam.</div>
+          </form>
+        </div>
+        <div class="card">
+          <h3 data-i18n="visualCTA">See live cases</h3>
+          <p class="subtle" data-i18n="visualCTACopy">Quick tour of our dashboard, trend feed, and recent wins.</p>
+          <div class="actions-row" style="margin-top:10px;">
+            <button class="btn-secondary" data-i18n="visualCtaBtn" data-scroll="#examples">See examples</button>
+            <button class="btn-primary" data-i18n="visualCtaCall" data-scroll="#lead">Book a call</button>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -562,60 +506,92 @@
         menuExamples: 'Examples',
         menuOffer: 'Offer',
         menuFaq: 'FAQ',
-        navCta: 'Get Boost',
-        eyebrow: 'Social brands, accelerated',
-        headline: 'Want a social media boost?',
-        subtitle: 'Our AI scouts viral trends and scripts short videos so your brand stays ahead of every conversation.',
-        benefit1: 'Fresh weekly hooks tailored to your niche.',
-        benefit2: 'Optimized scripts, captions, thumbnails & hashtags.',
-        benefit3: 'Publishing calendar that keeps you consistent.',
-        heroCtaPrimary: 'Subscribe',
-        heroCtaSecondary: 'See examples',
+        navCta: 'Book a Call',
+        eyebrow: 'AI radar for what\'s about to go viral',
+        headline: 'See what goes viral before it explodes.',
+        subtitle: 'BrandBooster AI scouts live trends and scripts video ideas so you can ride the wave first.',
+        chip1: 'Viral hooks & scripts',
+        chip2: 'Weekly drops by niche',
+        chip3: 'Captions + hashtags + thumbnails',
+        heroCtaPrimary: 'Book a Call',
+        heroCtaSecondary: 'See live trends',
+        metric1: 'views tracked daily',
+        metric2: 'hot topics in queue',
+        visualTag: 'Real-time feed',
+        trendTitle: 'Trend Feed',
         trendDesc: 'AI picks topics with 70%+ viral probability',
         trendLive: 'Live',
-        trend1Title: '"Behind the scenes" glow-up',
+        trend1Title: 'Glow-up behind the scenes',
         trend1Subtitle: 'Hook + script + hashtags ready',
         trend2Title: 'Micro-influencer collab',
         trend2Subtitle: 'Shoot in 30 minutes',
         trend3Title: 'Day-in-the-life challenge',
         trend3Subtitle: 'Daily schedule provided',
+        vid1: 'Product teaser → viral',
+        vid2: 'Founder story → spike',
+        vid3: 'Challenge reel → trend',
         growthTitle: 'Growth examples',
-        growthLead: 'Real accounts that moved from quiet to buzzing within weeks.',
+        growthLead: 'Full-width wins. Watch quiet accounts flip into buzzing channels.',
         followers: 'Followers',
         views: 'Monthly views',
-        growthNote: 'Influencer niches: beauty, fitness, DTC products. Results depend on effort and niche.',
+        growthNote: 'Influencer niches: beauty, fitness, DTC. Results depend on effort and niche.',
         howTitle: 'How it works',
+        howLead: 'Minimal text, maximum clarity. Three moves to hit the trend while it\'s hot.',
         step1Title: 'We scan your niche',
         step1Desc: 'AI monitors viral audio, hooks, and formats in your category every morning.',
         step2Title: 'We script & storyboard',
         step2Desc: 'You get ready-to-film scripts, captions, CTAs, and thumbnail prompts.',
         step3Title: 'You film, we optimize',
         step3Desc: 'Upload drafts, we tweak for platform rules and schedule posting.',
+        credBadge: 'US-based video production',
         credTitle: 'Why trust us',
+        credLead: 'Logos, cases, and hard-won experience—built for brands that want proof.',
         cred1: 'US-based video production team, real editors and producers.',
         cred2: '10+ years in commercials, product launches, and brand storytelling.',
         cred3: 'Documented cases with measurable ROI and retention.',
         cred4: 'See our production site →',
-        offerTitle: 'Offer',
-        offerCopy: 'Monthly subscription, priced like a fast-food meal. Limited client seats to keep quality high.',
-        offerCta: 'Claim a spot',
-        offerHint: 'Only 7 slots open this month.',
+        offerTitle: 'Offer & CTA',
+        offerCopy: 'Monthly subscription, priced like a fast-food meal. Limited seats to keep quality high.',
+        tagLite: 'Starter',
+        planLite: 'Pulse access',
+        priceLite: '$19 / wk',
+        lite1: 'Weekly viral trend drops',
+        lite2: 'Scripts + captions + hashtags',
+        lite3: 'Platform-ready thumbnails',
+        offerSecondary: 'Get access',
+        tagBest: 'Best value',
+        planPro: 'Creator lift',
+        pricePro: '$59 / wk',
+        pro1: 'Daily trend radar + alerts',
+        pro2: 'Storyboard + edit feedback',
+        pro3: 'Posting calendar & optimization',
+        offerCta: 'Book a call',
+        offerHint: 'Limited spots',
         faqTitle: 'FAQ',
         faq1Q: 'How fast do I see results?',
         faq1A: 'Most accounts notice uplift in 2-4 weeks of consistent posting.',
         faq2Q: 'Do you also film?',
         faq2A: 'You film on phone; we handle concepts, scripts, angles, captions, hashtags.',
         faq3Q: 'Which platforms?',
-        faq3A: 'TikTok, Instagram Reels, YouTube Shorts. We can also adapt for ads.',
+        faq3A: 'TikTok, Reels, Shorts. We can adapt for ads.',
         faq4Q: 'Is there a contract?',
-        faq4A: 'Monthly subscription. Cancel anytime before the next cycle.',
-        leadTitle: 'WhatsApp signup',
-        leadCopy: 'Tell us your niche and number—our producer will message you with the next available slot.',
+        faq4A: 'Month-to-month subscription. Cancel before the next cycle.',
+        finalTitle: 'Want to know what goes viral before everyone else?',
+        finalCopy: 'Drop your niche and number—our producer sends the hottest trends and a call slot.',
+        finalCta: 'Book a call',
+        finalAlt: 'WhatsApp',
+        leadBadge: 'WhatsApp signup',
+        leadTitle: 'Get on the list',
+        leadCopy: 'Tell us your niche and WhatsApp—producer replies with a slot.',
         leadName: 'Name',
-        leadPhone: 'WhatsApp number',
+        leadPhone: 'WhatsApp',
         leadNiche: 'Niche',
-        leadCta: 'Book via WhatsApp',
-        leadNote: 'We reply within 24 hours. Zero spam.'
+        leadCta: 'Send via WhatsApp',
+        leadNote: 'Replies within 24h. Zero spam.',
+        visualCTA: 'See live cases',
+        visualCTACopy: 'Quick tour of our dashboard, trend feed, and recent wins.',
+        visualCtaBtn: 'See examples',
+        visualCtaCall: 'Book a call'
       },
       ru: {
         badge: 'ИИ',
@@ -623,65 +599,98 @@
         menuExamples: 'Примеры',
         menuOffer: 'Оффер',
         menuFaq: 'FAQ',
-        navCta: 'Получить буст',
-        eyebrow: 'Социальные бренды на ускорении',
-        headline: 'Нужен толчок в соцсетях?',
-        subtitle: 'Наш ИИ ищет вирусные тренды и пишет короткие видео, чтобы ваш бренд оставался в теме.',
-        benefit1: 'Свежие ходы каждую неделю под вашу нишу.',
-        benefit2: 'Скрипты, описания, обложки и хэштеги — оптимизированы.',
-        benefit3: 'Календарь публикаций, чтобы не пропадать.',
-        heroCtaPrimary: 'Подписаться',
-        heroCtaSecondary: 'Смотреть примеры',
-        trendDesc: 'ИИ выбирает темы с 70%+ шансом на вирусность',
+        navCta: 'Записаться',
+        eyebrow: 'ИИ-радар того, что вот-вот станет вирусным',
+        headline: 'Видеть тренд до того, как он взорвётся.',
+        subtitle: 'BrandBooster AI ловит живые тренды и пишет идеи роликов, чтобы вы первыми словили волну.',
+        chip1: 'Вирусные хуки и сценарии',
+        chip2: 'Еженедельные подборки под нишу',
+        chip3: 'Тексты, хэштеги, обложки',
+        heroCtaPrimary: 'Записаться',
+        heroCtaSecondary: 'Смотреть тренды',
+        metric1: 'просмотров трекаем в день',
+        metric2: 'горячих тем в очереди',
+        visualTag: 'Лента в реальном времени',
+        trendTitle: 'Trend Feed',
+        trendDesc: 'ИИ выбирает темы с 70%+ шансом вирусности',
         trendLive: 'В эфире',
-        trend1Title: 'Бэкстейдж-превращение',
+        trend1Title: 'Бэкстейдж-перевоплощение',
         trend1Subtitle: 'Хук + сценарий + хэштеги готовы',
         trend2Title: 'Коллаб с микроинфлюенсером',
-        trend2Subtitle: 'Съемка за 30 минут',
-        trend3Title: 'Челлендж «день из жизни»',
+        trend2Subtitle: 'Съёмка за 30 минут',
+        trend3Title: 'Челлендж “день из жизни”',
         trend3Subtitle: 'Даем расписание на день',
+        vid1: 'Тизер продукта → вирус',
+        vid2: 'История фаундера → всплеск',
+        vid3: 'Челлендж-ролик → тренд',
         growthTitle: 'Примеры роста',
-        growthLead: 'Реальные аккаунты, которые ожили за пару недель.',
+        growthLead: 'Широкие победы: тихие аккаунты превращаются в активные.',
         followers: 'Подписчики',
         views: 'Просмотры в месяц',
-        growthNote: 'Ниши: бьюти, фитнес, DTC. Результаты зависят от усилий и ниши.',
+        growthNote: 'Ниши: бьюти, фитнес, DTC. Результат зависит от усилий и ниши.',
         howTitle: 'Как это работает',
+        howLead: 'Минимум текста, максимум ясности. Три шага, чтобы поймать волну.',
         step1Title: 'Сканируем вашу нишу',
         step1Desc: 'ИИ каждое утро мониторит вирусные аудио, хуки и форматы.',
         step2Title: 'Пишем и сторибордим',
-        step2Desc: 'Вы получаете сценарии, описания, CTA и подсказки для обложек.',
+        step2Desc: 'Вы получаете сценарии, тексты, CTA и подсказки для обложек.',
         step3Title: 'Вы снимаете, мы оптимизируем',
-        step3Desc: 'Грузите черновики — мы правим под правила платформ и ставим в график.',
+        step3Desc: 'Грузите черновики — правим под правила площадок и ставим в график.',
+        credBadge: 'Продакшн из США',
         credTitle: 'Почему нам верят',
-        cred1: 'Продакшн из США: настоящие редакторы и продюсеры.',
-        cred2: '10+ лет в рекламе, запуске продуктов и сторителлинге брендов.',
-        cred3: 'Задокументированные кейсы с измеримым ROI и удержанием.',
+        credLead: 'Логотипы, кейсы и опыт — для брендов, которым нужно доказательство.',
+        cred1: 'Команда из США: настоящие редакторы и продюсеры.',
+        cred2: '10+ лет в рекламе, запусках продуктов и сторителлинге брендов.',
+        cred3: 'Задокументированные кейсы с ROI и удержанием.',
         cred4: 'Сайт нашего продакшена →',
-        offerTitle: 'Оффер',
-        offerCopy: 'Подписка за цену фастфуда. Места ограничены ради качества.',
-        offerCta: 'Забронировать место',
-        offerHint: 'В этом месяце осталось 7 слотов.',
+        offerTitle: 'Оффер и CTA',
+        offerCopy: 'Подписка по цене фастфуда. Места ограничены ради качества.',
+        tagLite: 'Старт',
+        planLite: 'Pulse доступ',
+        priceLite: '$19 / нед',
+        lite1: 'Еженедельные тренды по нише',
+        lite2: 'Скрипты, описания и хэштеги',
+        lite3: 'Обложки под площадки',
+        offerSecondary: 'Получить доступ',
+        tagBest: 'Лучший выбор',
+        planPro: 'Creator lift',
+        pricePro: '$59 / нед',
+        pro1: 'Ежедневный радар + алерты',
+        pro2: 'Сториборд + правки монтажа',
+        pro3: 'Календарь и оптимизация постинга',
+        offerCta: 'Записаться',
+        offerHint: 'Ограничено мест',
         faqTitle: 'FAQ',
         faq1Q: 'Когда будут результаты?',
         faq1A: 'Обычно рост заметен за 2–4 недели стабильных публикаций.',
         faq2Q: 'Вы снимаете видео?',
-        faq2A: 'Вы снимаете на телефон, мы даем концепты, сценарии, ракурсы, тексты.',
+        faq2A: 'Вы снимаете на телефон; мы даём концепты, сценарии, ракурсы, тексты.',
         faq3Q: 'Какие площадки?',
         faq3A: 'TikTok, Reels, Shorts. Можем адаптировать под рекламу.',
         faq4Q: 'Есть ли контракт?',
         faq4A: 'Подписка помесячно. Можно отменить до следующего цикла.',
-        leadTitle: 'Заявка в WhatsApp',
-        leadCopy: 'Напишите нишу и номер — продюсер ответит со свободным слотом.',
+        finalTitle: 'Хотите знать, что станет вирусным раньше всех?',
+        finalCopy: 'Напишите нишу и номер — продюсер пришлет горячие тренды и время созвона.',
+        finalCta: 'Записаться',
+        finalAlt: 'WhatsApp',
+        leadBadge: 'Заявка в WhatsApp',
+        leadTitle: 'Попасть в лист',
+        leadCopy: 'Сообщите нишу и WhatsApp — продюсер ответит со слотом.',
         leadName: 'Имя',
-        leadPhone: 'Номер WhatsApp',
+        leadPhone: 'WhatsApp',
         leadNiche: 'Ниша',
-        leadCta: 'Записаться в WhatsApp',
-        leadNote: 'Отвечаем до 24 часов. Никакого спама.'
+        leadCta: 'Отправить в WhatsApp',
+        leadNote: 'Отвечаем до 24 часов. Никакого спама.',
+        visualCTA: 'Смотреть кейсы',
+        visualCTACopy: 'Короткий тур по дашборду, ленте трендов и кейсам.',
+        visualCtaBtn: 'Смотреть примеры',
+        visualCtaCall: 'Записаться'
       }
     };
 
     const langButtons = document.querySelectorAll('.lang-switch button');
     const i18nElems = document.querySelectorAll('[data-i18n]');
+    const placeholderElems = document.querySelectorAll('[data-i18n-placeholder]');
 
     langButtons.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -696,6 +705,10 @@
       i18nElems.forEach(el => {
         const key = el.dataset.i18n;
         if (dict[key]) el.textContent = dict[key];
+      });
+      placeholderElems.forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        if (dict[key]) el.placeholder = dict[key];
       });
       document.documentElement.lang = lang;
     }
@@ -728,7 +741,7 @@
       const phone = formData.get('phone')?.toString().trim();
       const niche = formData.get('niche')?.toString().trim();
 
-      const intro = translations[document.documentElement.lang]?.leadTitle || 'WhatsApp signup';
+      const intro = translations[document.documentElement.lang]?.leadBadge || 'WhatsApp signup';
       const parts = [intro];
       if (name) parts.push(`Name: ${name}`);
       if (phone) parts.push(`WhatsApp: ${phone}`);
@@ -738,6 +751,44 @@
       const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
       window.open(url, '_blank');
     });
+
+    const animatedElems = document.querySelectorAll('.animate');
+    const numberTargets = document.querySelectorAll('[data-animate]');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.dataset.animate) {
+            animateNumber(entry.target);
+          }
+          entry.target.querySelectorAll('[data-animate]').forEach(el => animateNumber(el));
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    animatedElems.forEach(el => observer.observe(el));
+    numberTargets.forEach(el => observer.observe(el));
+
+    function animateNumber(el) {
+      const target = parseInt(el.dataset.animate, 10);
+      if (Number.isNaN(target)) return;
+      let current = 0;
+      const increment = Math.max(1, Math.round(target / 80));
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = formatNumber(current);
+      }, 12);
+    }
+
+    function formatNumber(num) {
+      return num >= 1000 ? new Intl.NumberFormat().format(num) : `${num}`;
+    }
   </script>
 </body>
 </html>
