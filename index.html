@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrandBooster AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f9fb;
+      --bg-2: #eef3ff;
+      --card: rgba(255, 255, 255, 0.92);
+      --text: #0b1a2d;
+      --muted: #4b5563;
+      --accent: #0ad982;
+      --accent-strong: #0fcf78;
+      --border: #e5e7eb;
+      --shadow: 0 18px 60px rgba(15, 23, 42, 0.07);
+      --radius: 18px;
+      --glow: 0 20px 50px rgba(15, 207, 120, 0.2);
+      --blur: 16px;
+      --transition: all 0.28s ease;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(180deg, #fdfefe 0%, var(--bg) 40%, #fdfefe 100%);
+      color: var(--text);
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ul { padding: 0; margin: 0; list-style: none; }
+
+    .page { max-width: 1200px; margin: 0 auto; padding: 0 20px 64px; position: relative; }
+
+    @keyframes floaty {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(var(--blur));
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+    }
+
+    .nav {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+    .logo-badge { padding: 6px 10px; background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: #052018; border-radius: 999px; font-size: 12px; font-weight: 800; box-shadow: var(--glow); }
+
+    nav ul { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: center; }
+    nav a { padding: 10px 12px; border-radius: 12px; color: var(--muted); font-weight: 600; transition: var(--transition); }
+    nav a:hover { color: var(--text); background: rgba(56, 243, 145, 0.12); }
+
+    .actions { display: flex; align-items: center; gap: 10px; }
+
+    .lang-switch { display: inline-flex; padding: 6px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); gap: 6px; }
+    .lang-switch button { border: none; background: transparent; padding: 8px 12px; border-radius: 10px; font-weight: 700; color: var(--muted); cursor: pointer; transition: var(--transition); }
+    .lang-switch button.active { background: var(--text); color: #fff; box-shadow: 0 14px 32px rgba(15, 23, 42, 0.2); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #031811;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: var(--glow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 30px 60px rgba(56, 243, 145, 0.4); }
+
+    .btn-secondary { background: rgba(255,255,255,0.6); border: 1px solid var(--border); padding: 12px 16px; border-radius: 14px; font-weight: 800; color: var(--text); cursor: pointer; transition: var(--transition); backdrop-filter: blur(8px); }
+    .btn-secondary:hover { border-color: var(--text); transform: translateY(-2px); }
+
+    .hero {
+      display: grid;
+      gap: 28px;
+      margin: 48px 0 40px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: -30px -40px -20px -40px;
+      background: radial-gradient(circle at 30% 0%, rgba(56, 243, 145, 0.08), transparent 35%),
+                  radial-gradient(circle at 90% 10%, rgba(105, 133, 255, 0.08), transparent 40%);
+      filter: blur(50px);
+      z-index: -1;
+    }
+
+    .hero-grid { display: grid; gap: 20px; }
+
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 14px; background: rgba(56, 243, 145, 0.18); color: #05422f; font-weight: 700; box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); }
+    .spark { width: 10px; height: 10px; background: var(--accent-strong); border-radius: 50%; box-shadow: 0 0 0 6px rgba(56, 243, 145, 0.2); }
+
+    .headline { font-size: clamp(34px, 6vw, 56px); line-height: 1.1; margin: 0; letter-spacing: -0.03em; }
+    .subtitle { font-size: 18px; color: var(--muted); margin: 4px 0 14px; max-width: 640px; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip { background: rgba(255,255,255,0.65); border: 1px solid rgba(226, 232, 240, 0.9); padding: 10px 12px; border-radius: 12px; font-weight: 600; color: var(--text); backdrop-filter: blur(8px); box-shadow: var(--shadow); }
+
+    .actions-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+    .metric-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+    .metric { background: rgba(17, 24, 39, 0.9); color: #e7fff4; padding: 12px 14px; border-radius: 14px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 20px 50px rgba(12, 26, 47, 0.4); }
+    .metric strong { font-size: 18px; }
+    .badge { padding: 6px 10px; border-radius: 999px; background: rgba(56, 243, 145, 0.15); color: #12e37c; font-weight: 700; border: 1px solid rgba(56, 243, 145, 0.4); }
+
+    .hero-visual {
+      position: relative;
+      background: linear-gradient(180deg, #ffffff 0%, #f2f5fb 100%);
+      border-radius: 24px;
+      padding: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      color: #0f172a;
+      min-height: 360px;
+      animation: floaty 10s ease-in-out infinite;
+    }
+
+    .glass-tag { position: absolute; top: 18px; right: 18px; padding: 8px 12px; background: rgba(255,255,255,0.8); border: 1px solid rgba(226,232,240,0.9); border-radius: 12px; backdrop-filter: blur(8px); font-weight: 800; color: var(--text); box-shadow: var(--shadow); }
+
+    .visual-grid { display: grid; gap: 12px; position: relative; }
+    .trend-card { background: #fff; border-radius: 16px; padding: 14px; display: grid; gap: 10px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .trend-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .trend-title { font-weight: 800; }
+    .trend-items { display: grid; gap: 10px; }
+    .trend-item { padding: 10px; border-radius: 12px; background: #f2f5fb; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); }
+    .trend-item strong { color: var(--text); }
+    .trend-item span { color: #0ea371; font-weight: 800; }
+
+    .video-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+    .video-card { background: #fff; border-radius: 14px; padding: 10px; box-shadow: var(--shadow); display: grid; gap: 8px; border: 1px solid var(--border); }
+    .thumb { border-radius: 12px; height: 90px; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+    .thumb::after { content: attr(data-label); position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%); color: #fff; display: grid; place-items: center; font-weight: 800; letter-spacing: -0.01em; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: rgba(15, 207, 120, 0.15); color: #0d9e68; font-weight: 800; font-size: 13px; }
+
+    .floating { position: absolute; inset: auto 12px 14px auto; display: flex; flex-direction: column; gap: 10px; }
+    .float-card { background: rgba(255,255,255,0.12); border-radius: 14px; padding: 12px; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.16); animation: floaty 6s ease-in-out infinite alternate; }
+
+    .section { margin: 48px 0; position: relative; }
+    .section h2 { margin: 0 0 12px; font-size: 28px; letter-spacing: -0.02em; }
+    .section .lead { margin: 0 0 18px; color: var(--muted); max-width: 720px; }
+
+    .grid-3 { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .grid-2 { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+    .audience { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .audience-card { position: relative; overflow: hidden; }
+    .audience-card::after { content: ''; position: absolute; inset: auto 18px 18px auto; width: 90px; height: 90px; background: radial-gradient(circle, rgba(56,243,145,0.18), transparent 60%); filter: blur(12px); }
+
+    .card { background: var(--card); border: 1px solid rgba(226, 232, 240, 0.9); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); transition: var(--transition); backdrop-filter: blur(10px); }
+    .card:hover { transform: translateY(-3px); }
+
+    .growth-panel { background: linear-gradient(135deg, #0c1a2f, #0f243f); color: #e8fff4; border-radius: 18px; padding: 20px; display: grid; gap: 14px; box-shadow: 0 30px 70px rgba(12, 26, 47, 0.5); position: relative; overflow: hidden; }
+    .growth-panel::after { content: ''; position: absolute; width: 220px; height: 220px; background: radial-gradient(circle at center, rgba(56, 243, 145, 0.35), transparent 60%); filter: blur(26px); right: -40px; top: -60px; }
+    .growth-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; align-items: center; position: relative; z-index: 1; }
+    .growth-number { font-size: 30px; font-weight: 800; color: #f3fff9; }
+    .growth-number small { display: block; color: #9bc2b2; font-size: 13px; }
+    .growth-arrow { text-align: center; font-size: 22px; color: #6bffb1; }
+
+    .platforms { display: flex; flex-wrap: wrap; gap: 10px; }
+    .platform { background: rgba(255,255,255,0.7); border: 1px solid var(--border); border-radius: 12px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; box-shadow: var(--shadow); }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .ig { background: linear-gradient(135deg, #fdc468, #df4996); }
+    .tt { background: linear-gradient(135deg, #25f4ee, #fe2c55); }
+    .yt { background: #ff3d3d; }
+
+    .steps { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .step { display: grid; gap: 10px; }
+    .step-icon { width: 44px; height: 44px; border-radius: 14px; background: rgba(56, 243, 145, 0.16); color: #05422f; display: grid; place-items: center; font-weight: 800; }
+
+    .cred-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); align-items: stretch; }
+    .cred-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 14px; background: rgba(56, 243, 145, 0.16); color: #05422f; font-weight: 800; width: fit-content; }
+    .logo-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .logo-placeholder { flex: 1; min-width: 120px; height: 58px; border-radius: 12px; background: rgba(255,255,255,0.7); border: 1px dashed #cbd5e1; display: grid; place-items: center; color: #475569; font-weight: 700; box-shadow: var(--shadow); }
+
+    .pricing { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .price-card { position: relative; overflow: hidden; }
+    .price-card .tag { position: absolute; top: 12px; right: 12px; padding: 6px 10px; background: rgba(56, 243, 145, 0.16); border-radius: 999px; font-weight: 800; color: #065f3c; }
+    .price { font-size: 28px; font-weight: 800; margin: 4px 0 10px; }
+    .limited { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; background: rgba(255,255,255,0.7); border: 1px solid var(--border); border-radius: 12px; font-weight: 700; }
+
+    .faq { display: grid; gap: 10px; }
+    .faq-item { border: 1px solid var(--border); border-radius: 14px; background: var(--card); overflow: hidden; box-shadow: var(--shadow); }
+    .faq-question { width: 100%; text-align: left; border: none; background: transparent; padding: 14px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .faq-answer { padding: 0 14px 14px; color: var(--muted); display: none; }
+    .faq-item.active .faq-answer { display: block; }
+
+    .lead-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .lead-form { display: grid; gap: 12px; }
+    .input-row { display: grid; gap: 10px; }
+    input, select, textarea { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: #fff; font-size: 15px; font-family: inherit; transition: var(--transition); }
+    input:focus, select:focus, textarea:focus { outline: 2px solid rgba(56, 243, 145, 0.4); }
+
+    .cta-panel { background: linear-gradient(135deg, #0c1d33, #0b2b49); color: #e7fff5; border-radius: 18px; padding: 22px; display: grid; gap: 14px; box-shadow: 0 30px 70px rgba(12, 26, 47, 0.5); position: relative; overflow: hidden; }
+    .cta-panel::after { content: ''; position: absolute; width: 200px; height: 200px; background: radial-gradient(circle, rgba(56, 243, 145, 0.38), transparent 60%); filter: blur(22px); right: -30px; bottom: -60px; }
+    .cta-panel .headline { font-size: clamp(28px, 5vw, 38px); }
+
+    .subtle { color: var(--muted); font-size: 14px; }
+    .muted-light { color: #a7c0e3; }
+
+    .animate { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .animate.visible { opacity: 1; transform: translateY(0); }
+
+    .photo-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .photo-card { position: relative; overflow: hidden; border-radius: 18px; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow); min-height: 200px; animation: floaty 7s ease-in-out infinite; }
+    .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(1.05); }
+    .photo-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(0,0,0,0.45)); color: #f8fbff; display: grid; align-content: end; padding: 14px; font-weight: 700; letter-spacing: -0.01em; }
+    .photo-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(255,255,255,0.85); color: #0f172a; border-radius: 999px; font-weight: 700; margin-top: 6px; }
+
+    .moodboard { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+    .mood-tile { position: relative; border-radius: 16px; overflow: hidden; min-height: 140px; border: 1px solid rgba(226,232,240,0.9); box-shadow: var(--shadow); background-size: cover; background-position: center; filter: saturate(1.05); animation: floaty 9s ease-in-out infinite alternate; }
+    .mood-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.35) 100%); }
+    .mood-label { position: absolute; inset: auto 10px 10px 10px; color: #f8fbff; font-weight: 800; letter-spacing: -0.01em; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="page nav">
+      <div class="logo">
+        <span>BrandBooster AI</span>
+        <span class="logo-badge" data-i18n="badge">AI</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#how" data-i18n="menuHow">How it works</a></li>
+          <li><a href="#examples" data-i18n="menuExamples">Examples</a></li>
+          <li><a href="#who" data-i18n="menuWho">Who it's for</a></li>
+          <li><a href="#offer" data-i18n="menuOffer">Subscription</a></li>
+          <li><a href="#faq" data-i18n="menuFaq">FAQ</a></li>
+        </ul>
+      </nav>
+      <div class="actions">
+        <div class="lang-switch" aria-label="Language switch">
+          <button class="active" data-lang="en">EN</button>
+          <button data-lang="ru">RU</button>
+        </div>
+        <button class="btn-primary" data-i18n="navCta" data-scroll="#offer">Start subscription</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero animate">
+      <div class="hero-grid">
+        <span class="eyebrow"><span class="spark"></span><span data-i18n="eyebrow">Real-time trend crew: AI + humans</span></span>
+        <h1 class="headline" data-i18n="headline">Get viral video ideas every week. No SMM needed.</h1>
+        <p class="subtitle" data-i18n="subtitle">AI + producers drop ready-to-film trends on a monthly subscription.</p>
+
+        <div class="chips">
+          <span class="chip" data-i18n="chip1">Subscription service</span>
+          <span class="chip" data-i18n="chip2">AI + human curation</span>
+          <span class="chip" data-i18n="chip3">Ready in 20 minutes</span>
+        </div>
+
+        <div class="actions-row">
+          <button class="btn-primary" data-i18n="heroCtaPrimary" data-scroll="#offer">Start subscription</button>
+          <button class="btn-secondary" data-i18n="heroCtaSecondary" data-scroll="#lead">Book a call</button>
+          <div class="platforms">
+            <span class="platform"><span class="dot ig"></span>Instagram</span>
+            <span class="platform"><span class="dot tt"></span>TikTok</span>
+            <span class="platform"><span class="dot yt"></span>YouTube Shorts</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric">
+            <strong data-animate="480">480k</strong>
+            <span class="badge" data-i18n="metric1">views tracked daily</span>
+          </div>
+          <div class="metric">
+            <strong data-animate="96">96</strong>
+            <span class="badge" data-i18n="metric2">fresh ideas queued</span>
+          </div>
+          <div class="metric">
+            <strong data-animate="14">14</strong>
+            <span class="badge" data-i18n="metric3">real producers onboard</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual animate" aria-label="AI trend radar">
+        <div class="glass-tag" data-i18n="visualTag">Live trend feed</div>
+        <div class="visual-grid">
+          <div class="trend-card">
+            <div class="trend-header">
+              <div>
+                <div class="trend-title" data-i18n="trendTitle">What we send you</div>
+                <div class="muted-light" style="font-size:13px;" data-i18n="trendDesc">AI scores + human polish → shoot in minutes</div>
+              </div>
+              <span class="pill" data-i18n="trendLive">Live</span>
+            </div>
+            <div class="trend-items">
+              <div class="trend-item">
+                <div>
+                  <strong data-i18n="trend1Title">High viral potential</strong>
+                  <div style="font-size:13px;" data-i18n="trend1Subtitle">Hook, script, angles, hashtags</div>
+                </div>
+                <span>78k ▶</span>
+              </div>
+              <div class="trend-item">
+                <div>
+                  <strong data-i18n="trend2Title">Ready-to-film today</strong>
+                  <div style="font-size:13px;" data-i18n="trend2Subtitle">Record on phone in 20 minutes</div>
+                </div>
+                <span>124k ▶</span>
+              </div>
+              <div class="trend-item">
+                <div>
+                  <strong data-i18n="trend3Title">Human-checked</strong>
+                  <div style="font-size:13px;" data-i18n="trend3Subtitle">No bots, no spammy automation</div>
+                </div>
+                <span>310k ▶</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-strip">
+            <div class="video-card">
+              <div class="thumb" data-label="Placeholder" style="background: radial-gradient(circle at 20% 20%, rgba(15,207,120,0.25), transparent 50%), linear-gradient(135deg, #cfd8e3, #eef1f7);"></div>
+              <div class="pill">+360% growth</div>
+              <div class="muted-light" data-i18n="vid1">Beginner creator → steady views</div>
+            </div>
+            <div class="video-card">
+              <div class="thumb" data-label="Placeholder" style="background: radial-gradient(circle at 80% 20%, rgba(14,163,113,0.25), transparent 50%), linear-gradient(135deg, #dce5f2, #f6f8fb);"></div>
+              <div class="pill">+1.1M views</div>
+              <div class="muted-light" data-i18n="vid2">Local brand → viral weekend</div>
+            </div>
+            <div class="video-card">
+              <div class="thumb" data-label="Placeholder" style="background: radial-gradient(circle at 30% 10%, rgba(10,217,130,0.22), transparent 50%), linear-gradient(135deg, #e1e8f5, #f7f9fd);"></div>
+              <div class="pill">+920% lift</div>
+              <div class="muted-light" data-i18n="vid3">Founder reels → consistent leads</div>
+            </div>
+          </div>
+        </div>
+        <div class="floating">
+          <div class="float-card" data-i18n="float1">AI scans trending audio hourly</div>
+          <div class="float-card" data-i18n="float2">Producers hand-pick and polish</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section animate" id="visuals">
+      <h2 data-i18n="visualsTitle">What the drops look like</h2>
+      <p class="lead" data-i18n="visualsLead">Real snapshots. Minimal text. See the ideas before you subscribe.</p>
+      <div class="photo-grid">
+        <div class="photo-card">
+          <div class="thumb" data-label="Placeholder" style="height:100%; border-radius:0; background: linear-gradient(135deg, #dbe5f2, #f7f9fd);"></div>
+          <div class="photo-overlay">
+            <span data-i18n="visuals1">Ready-to-film hooks with angles and captions.</span>
+            <span class="photo-chip">IG · TikTok · Shorts</span>
+          </div>
+        </div>
+        <div class="photo-card">
+          <div class="thumb" data-label="Placeholder" style="height:100%; border-radius:0; background: linear-gradient(135deg, #e2eaf6, #fdfefe);"></div>
+          <div class="photo-overlay">
+            <span data-i18n="visuals2">AI scores + human polish = zero fluff.</span>
+            <span class="photo-chip" data-i18n="visualsChip">Trend drop sample</span>
+          </div>
+        </div>
+        <div class="photo-card">
+          <div class="thumb" data-label="Placeholder" style="height:100%; border-radius:0; background: linear-gradient(135deg, #d8e3f1, #f6f8fb);"></div>
+          <div class="photo-overlay">
+            <span data-i18n="visuals3">Phone-first storyboards you can film in 20 minutes.</span>
+            <span class="photo-chip" data-i18n="visualsChip2">Made for non-pros</span>
+          </div>
+        </div>
+      </div>
+      <div class="moodboard" aria-label="Trend moodboard">
+        <div class="mood-tile" style="background: radial-gradient(circle at 20% 20%, rgba(10,217,130,0.28), transparent 50%), linear-gradient(135deg, #e3ebf6, #f7f9fd);">
+          <span class="mood-label" data-i18n="mood1">Trending audio picks</span>
+        </div>
+        <div class="mood-tile" style="background: radial-gradient(circle at 80% 20%, rgba(15,207,120,0.25), transparent 50%), linear-gradient(135deg, #dfe7f3, #f6f8fb);">
+          <span class="mood-label" data-i18n="mood2">Shot lists in one glance</span>
+        </div>
+        <div class="mood-tile" style="background: radial-gradient(circle at 30% 10%, rgba(14,163,113,0.25), transparent 50%), linear-gradient(135deg, #d9e4f3, #f7f9fd);">
+          <span class="mood-label" data-i18n="mood3">Quick captions & hooks</span>
+        </div>
+        <div class="mood-tile" style="background: radial-gradient(circle at 60% 30%, rgba(10,217,130,0.22), transparent 50%), linear-gradient(135deg, #dfe8f4, #fdfefe);">
+          <span class="mood-label" data-i18n="mood4">Platform-ready thumbs</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section animate" id="outcomes">
+      <h2 data-i18n="outcomeTitle">Why creators subscribe</h2>
+      <p class="lead" data-i18n="outcomeLead">Fast wins, clear benefits. Short cards, zero fluff.</p>
+      <div class="grid-2">
+        <div class="card" data-i18n="outcome1">Ideas on tap — weekly or daily drops.</div>
+        <div class="card" data-i18n="outcome2">Post like a pro — scripts, hooks, captions.</div>
+        <div class="card" data-i18n="outcome3">Ahead of the wave — we send what will pop.</div>
+        <div class="card" data-i18n="outcome4">Shoot in 20 minutes — phone-ready angles.</div>
+      </div>
+    </section>
+
+    <section class="section animate" id="who">
+      <h2 data-i18n="whoTitle">Who this is for</h2>
+      <p class="lead" data-i18n="whoLead">For creators and small teams that want quick wins without an SMM hire.</p>
+      <div class="grid-3 audience">
+        <div class="card audience-card">
+          <div class="step-icon">🎥</div>
+          <strong data-i18n="who1">Beginner creators wanting structure</strong>
+          <p class="subtle" data-i18n="who1Desc">Clear hooks to start posting weekly.</p>
+        </div>
+        <div class="card audience-card">
+          <div class="step-icon">🏪</div>
+          <strong data-i18n="who2">Small brands & shops</strong>
+          <p class="subtle" data-i18n="who2Desc">Ideas that turn scrollers into buyers.</p>
+        </div>
+        <div class="card audience-card">
+          <div class="step-icon">🧠</div>
+          <strong data-i18n="who3">Founders & experts</strong>
+          <p class="subtle" data-i18n="who3Desc">Authority shots without an agency.</p>
+        </div>
+        <div class="card audience-card">
+          <div class="step-icon">📍</div>
+          <strong data-i18n="who4">Local businesses</strong>
+          <p class="subtle" data-i18n="who4Desc">Phone-friendly shoots that showcase services.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section animate" id="examples">
+      <h2 data-i18n="growthTitle">Growth examples</h2>
+      <p class="lead" data-i18n="growthLead">Before → after. Post the drops, watch the climb.</p>
+      <div class="growth-panel">
+        <div class="growth-row">
+          <div class="growth-number"><span data-animate="3100">3.1k</span> → <span data-animate="24800">24.8k</span><small data-i18n="followers">Followers</small></div>
+          <div class="growth-arrow">⬈</div>
+          <div class="growth-number"><span data-animate="18000">18k</span> → <span data-animate="640000">640k</span><small data-i18n="views">Monthly views</small></div>
+        </div>
+        <div class="growth-row">
+          <div class="growth-number"><span data-animate="9400">9.4k</span> → <span data-animate="52000">52k</span><small data-i18n="followers">Followers</small></div>
+          <div class="growth-arrow">⬈</div>
+          <div class="growth-number"><span data-animate="42000">42k</span> → <span data-animate="1100000">1.1M</span><small data-i18n="views">Monthly views</small></div>
+        </div>
+        <div class="subtle" data-i18n="growthNote">Beauty, fitness, DTC. Your effort sets the slope.</div>
+      </div>
+    </section>
+
+    <section class="section animate" id="how">
+      <h2 data-i18n="howTitle">How the subscription works</h2>
+      <p class="lead" data-i18n="howLead">Five quick beats from sign-up to posting.</p>
+      <div class="steps">
+        <div class="card step">
+          <div class="step-icon">1</div>
+          <strong data-i18n="step1Title">Subscribe</strong>
+          <p class="subtle" data-i18n="step1Desc">Pick weekly or daily drops for your niche.</p>
+        </div>
+        <div class="card step">
+          <div class="step-icon">2</div>
+          <strong data-i18n="step2Title">AI scans, humans verify</strong>
+          <p class="subtle" data-i18n="step2Desc">AI scores, producers select.</p>
+        </div>
+        <div class="card step">
+          <div class="step-icon">3</div>
+          <strong data-i18n="step3Title">You receive ready-to-film ideas</strong>
+          <p class="subtle" data-i18n="step3Desc">Hooks, captions, thumbs, angles in one drop.</p>
+        </div>
+        <div class="card step">
+          <div class="step-icon">4</div>
+          <strong data-i18n="step4Title">Shoot on your phone</strong>
+          <p class="subtle" data-i18n="step4Desc">20-minute shoots on your phone.</p>
+        </div>
+        <div class="card step">
+          <div class="step-icon">5</div>
+          <strong data-i18n="step5Title">Grow consistently</strong>
+          <p class="subtle" data-i18n="step5Desc">We tweak the next drop based on wins.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section animate" id="cred">
+      <div class="cred-badge" data-i18n="credBadge">US-based video production</div>
+      <h2 data-i18n="credTitle">Why trust us</h2>
+      <div class="lead" data-i18n="credLead">Real producers + AI. No bots, no recycled packs.</div>
+      <div class="logo-row">
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+      </div>
+      <div class="cred-grid">
+        <div class="card" data-i18n="cred1">AI + humans curate each idea. No repeats.</div>
+        <div class="card" data-i18n="cred2">10+ years in video. US leads every drop.</div>
+        <div class="card" data-i18n="cred3">Real case numbers on request.</div>
+        <div class="card"><a href="#" data-i18n="cred4">See our production site →</a></div>
+      </div>
+    </section>
+
+    <section class="section animate" id="offer">
+      <h2 data-i18n="offerTitle">Subscription plans</h2>
+      <p class="lead" data-i18n="offerCopy">Monthly subscription. Cancel anytime. Cheaper than an SMM hire.</p>
+      <div class="pricing">
+        <div class="card price-card">
+          <div class="tag" data-i18n="tagLite">Starter</div>
+          <h3 data-i18n="planLite">Pulse access</h3>
+          <div class="price" data-i18n="priceLite">$89 / mo</div>
+          <ul>
+            <li data-i18n="lite1">Weekly viral trend drops</li>
+            <li data-i18n="lite2">Scripts + captions + hashtags</li>
+            <li data-i18n="lite3">Platform-ready thumbnails</li>
+          </ul>
+          <div class="actions-row" style="margin-top:12px;">
+            <button class="btn-secondary" data-i18n="offerSecondary" data-scroll="#lead">Get access</button>
+          </div>
+        </div>
+        <div class="card price-card" style="border-color: rgba(56,243,145,0.6); box-shadow: 0 30px 70px rgba(56, 243, 145, 0.3);">
+          <div class="tag" data-i18n="tagBest">Best value</div>
+          <h3 data-i18n="planPro">Creator lift</h3>
+          <div class="price" data-i18n="pricePro">$219 / mo</div>
+          <ul>
+            <li data-i18n="pro1">Daily trend radar + alerts</li>
+            <li data-i18n="pro2">Storyboard + edit feedback</li>
+            <li data-i18n="pro3">Posting calendar & optimization</li>
+          </ul>
+          <div class="actions-row" style="margin-top:12px;">
+            <button class="btn-primary" data-i18n="offerCta" data-scroll="#lead">Book a call</button>
+            <span class="limited" data-i18n="offerHint">Limited seats</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section animate" id="faq">
+      <h2 data-i18n="faqTitle">FAQ</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span data-i18n="faq1Q">Is this for beginners?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer" data-i18n="faq1A">Yes. Simple scripts and angles for your phone.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span data-i18n="faq2Q">Do I need editing skills?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer" data-i18n="faq2A">Basic phone editing is enough. We add shot lists and captions.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span data-i18n="faq3Q">Is this real trends?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer" data-i18n="faq3A">Yes. Live data + human filter. No recycled packs.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span data-i18n="faq4Q">How often do I get ideas?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer" data-i18n="faq4A">Weekly or daily drops. Month-to-month, cancel anytime.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section animate" id="lead">
+      <div class="cta-panel">
+        <h2 class="headline" data-i18n="finalTitle">Want viral ideas delivered before everyone else?</h2>
+        <p class="lead" style="color:#c9e7da;" data-i18n="finalCopy">Tell us your niche. We\'ll send a trend sample and a time to onboard.</p>
+        <div class="actions-row">
+          <button class="btn-primary" data-i18n="finalCta" data-scroll="#lead-form">Start subscription</button>
+          <button class="btn-secondary" data-i18n="finalAlt" data-scroll="#lead-form">WhatsApp</button>
+        </div>
+      </div>
+
+      <div class="lead-grid" style="margin-top:18px;">
+        <div class="card" style="position:relative; overflow:hidden;">
+          <div class="limited" style="margin-bottom:10px;" data-i18n="leadBadge">Subscription waitlist</div>
+          <h3 data-i18n="leadTitle">Talk to a producer</h3>
+          <p class="subtle" data-i18n="leadCopy">Drop your niche and WhatsApp — we send a sample and schedule start.</p>
+          <form id="lead-form" class="lead-form">
+            <div class="input-row">
+              <input type="text" name="name" placeholder="Name" data-i18n-placeholder="leadName" required />
+              <input type="text" name="phone" placeholder="WhatsApp" data-i18n-placeholder="leadPhone" required />
+              <input type="text" name="niche" placeholder="Niche" data-i18n-placeholder="leadNiche" />
+            </div>
+            <button type="submit" class="btn-primary" data-i18n="leadCta">Send via WhatsApp</button>
+            <div class="subtle" data-i18n="leadNote">Replies within 24h. Zero spam.</div>
+          </form>
+        </div>
+        <div class="card">
+          <h3 data-i18n="visualCTA">See live cases</h3>
+          <p class="subtle" data-i18n="visualCTACopy">Quick tour of our dashboard, trend feed, and recent wins.</p>
+          <div class="actions-row" style="margin-top:10px;">
+            <button class="btn-secondary" data-i18n="visualCtaBtn" data-scroll="#examples">See examples</button>
+            <button class="btn-primary" data-i18n="visualCtaCall" data-scroll="#lead">Book a call</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const translations = {
+      en: {
+        badge: 'AI',
+        menuHow: 'How it works',
+        menuExamples: 'Examples',
+        menuOffer: 'Subscription',
+        menuFaq: 'FAQ',
+        menuWho: 'Who it\'s for',
+        navCta: 'Start subscription',
+        eyebrow: 'Subscription for viral ideas',
+        headline: 'Drive growth with real-time social trends.',
+        subtitle: 'AI + producers deliver ready-to-film ideas for creators and small brands.',
+        chip1: 'Subscription service',
+        chip2: 'AI + human curation',
+        chip3: 'Ready in 20 minutes',
+        heroCtaPrimary: 'Start subscription',
+        heroCtaSecondary: 'Book a call',
+        metric1: 'views tracked daily',
+        metric2: 'fresh ideas queued',
+        metric3: 'real producers onboard',
+        visualTag: 'Live trend feed',
+        trendTitle: 'What we send you',
+        trendDesc: 'AI scores + human polish → shoot in minutes',
+        trendLive: 'Live',
+        trend1Title: 'High viral potential',
+        trend1Subtitle: 'Hook, script, angles, hashtags',
+        trend2Title: 'Ready-to-film today',
+        trend2Subtitle: 'Record on phone in 20 minutes',
+        trend3Title: 'Human-checked',
+        trend3Subtitle: 'No bots, no spammy automation',
+        vid1: 'Beginner creator → steady views',
+        vid2: 'Local brand → viral weekend',
+        vid3: 'Founder reels → consistent leads',
+        float1: 'AI scans trending audio hourly',
+        float2: 'Producers hand-pick and polish',
+        visualsTitle: 'What drops look like',
+        visualsLead: 'Minimal, visual-first previews you can film fast.',
+        moodTitle: 'Trend moodboard',
+        mood1: 'Trending audio picks',
+        mood2: 'Shot lists in one glance',
+        mood3: 'Quick captions & hooks',
+        mood4: 'Platform-ready thumbs',
+        visuals1: 'Ready-to-film hooks with angles and captions.',
+        visuals2: 'AI scores + human polish = zero fluff.',
+        visuals3: 'Phone-first storyboards you can film in 20 minutes.',
+        visualsChip: 'Trend drop sample',
+        visualsChip2: 'Made for non-pros',
+        outcomeTitle: 'Why creators subscribe',
+        outcomeLead: 'Fast wins, clear benefits. Short cards, zero fluff.',
+        outcome1: 'Ideas on tap — weekly or daily drops.',
+        outcome2: 'Post like a pro — scripts, hooks, captions.',
+        outcome3: 'Ahead of the wave — we send what will pop.',
+        outcome4: 'Shoot in 20 minutes — phone-ready angles.',
+        whoTitle: 'Who this is for',
+        whoLead: 'For creators and small teams that want quick wins without an SMM hire.',
+        who1: 'Beginner creators wanting structure',
+        who1Desc: 'Clear hooks to start posting weekly.',
+        who2: 'Small brands & shops',
+        who2Desc: 'Ideas that turn scrollers into buyers.',
+        who3: 'Founders & experts',
+        who3Desc: 'Authority shots without an agency.',
+        who4: 'Local businesses',
+        who4Desc: 'Phone-friendly shoots that showcase services.',
+        growthTitle: 'Growth examples',
+        growthLead: 'Before → after. Post the drops, watch the climb.',
+        followers: 'Followers',
+        views: 'Monthly views',
+        growthNote: 'Beauty, fitness, DTC. Your effort sets the slope.',
+        howTitle: 'How the subscription works',
+        howLead: 'Five quick beats from sign-up to posting.',
+        step1Title: 'Subscribe',
+        step1Desc: 'Pick weekly or daily drops for your niche.',
+        step2Title: 'AI scans, humans verify',
+        step2Desc: 'AI scores, producers select.',
+        step3Title: 'You receive ready-to-film ideas',
+        step3Desc: 'Hooks, captions, thumbs, angles in one drop.',
+        step4Title: 'Shoot on your phone',
+        step4Desc: '20-minute shoots on your phone.',
+        step5Title: 'Grow consistently',
+        step5Desc: 'We tweak the next drop based on wins.',
+        credBadge: 'US-based video production',
+        credTitle: 'Why trust us',
+        credLead: 'Real producers + AI. No bots, no recycled packs.',
+        cred1: 'AI + humans curate each idea. No repeats.',
+        cred2: '10+ years in video. US leads every drop.',
+        cred3: 'Real case numbers on request.',
+        cred4: 'See our production site →',
+        offerTitle: 'Subscription plans',
+        offerCopy: 'Monthly subscription. Cancel anytime. Cheaper than an SMM hire.',
+        tagLite: 'Starter',
+        planLite: 'Pulse access',
+        priceLite: '$89 / mo',
+        lite1: 'Weekly viral trend drops',
+        lite2: 'Scripts + captions + hashtags',
+        lite3: 'Platform-ready thumbnails',
+        offerSecondary: 'Get access',
+        tagBest: 'Best value',
+        planPro: 'Creator lift',
+        pricePro: '$219 / mo',
+        pro1: 'Daily trend radar + alerts',
+        pro2: 'Storyboard + edit feedback',
+        pro3: 'Posting calendar & optimization',
+        offerCta: 'Book a call',
+        offerHint: 'Limited seats',
+        faqTitle: 'FAQ',
+        faq1Q: 'Is this for beginners?',
+        faq1A: 'Yes. Simple scripts and angles for your phone.',
+        faq2Q: 'Do I need editing skills?',
+        faq2A: 'Basic phone editing is enough. We add shot lists and captions.',
+        faq3Q: 'Is this real trends?',
+        faq3A: 'Yes. Live data + human filter. No recycled packs.',
+        faq4Q: 'How often do I get ideas?',
+        faq4A: 'Weekly or daily drops. Month-to-month, cancel anytime.',
+        finalTitle: 'Want viral ideas delivered before everyone else?',
+        finalCopy: 'Tell us your niche. We\'ll send a sample and onboard time.',
+        finalCta: 'Start subscription',
+        finalAlt: 'WhatsApp',
+        leadBadge: 'Subscription waitlist',
+        leadTitle: 'Talk to a producer',
+        leadCopy: 'Drop your niche and WhatsApp — we send a sample and schedule start.',
+        leadName: 'Name',
+        leadPhone: 'WhatsApp',
+        leadNiche: 'Niche',
+        leadCta: 'Send via WhatsApp',
+        leadNote: 'Replies within 24h. Zero spam.',
+        visualCTA: 'See live cases',
+        visualCTACopy: 'Quick tour of our dashboard, trend feed, and recent wins.',
+        visualCtaBtn: 'See examples',
+        visualCtaCall: 'Book a call'
+      },
+      ru: {
+        badge: 'ИИ',
+        menuHow: 'Как это работает',
+        menuExamples: 'Примеры',
+        menuOffer: 'Подписка',
+        menuFaq: 'FAQ',
+        menuWho: 'Для кого',
+        navCta: 'Запустить подписку',
+        eyebrow: 'Подписка на вирусные идеи',
+        headline: 'Рост за счёт трендов в реальном времени.',
+        subtitle: 'ИИ и продюсеры присылают готовые идеи для креаторов и брендов.',
+        chip1: 'Сервис по подписке',
+        chip2: 'ИИ + ручная модерация',
+        chip3: 'Готово за 20 минут',
+        heroCtaPrimary: 'Запустить подписку',
+        heroCtaSecondary: 'Назначить созвон',
+        metric1: 'просмотров трекаем в день',
+        metric2: 'свежих идей в очереди',
+        metric3: 'живых продюсеров в команде',
+        visualTag: 'Лента трендов',
+        trendTitle: 'Что вы получаете',
+        trendDesc: 'ИИ оценивает, люди допиливают — можно снимать сразу',
+        trendLive: 'Сейчас',
+        trend1Title: 'С высоким шансом вирусности',
+        trend1Subtitle: 'Хук, сценарий, ракурсы, хэштеги',
+        trend2Title: 'Снимать сегодня',
+        trend2Subtitle: 'Запись на телефон за 20 минут',
+        trend3Title: 'Проверено людьми',
+        trend3Subtitle: 'Без ботов и спам-автоматики',
+        vid1: 'Новичок-блогер → стабильные просмотры',
+        vid2: 'Локальный бренд → вирусные выходные',
+        vid3: 'Рилсы фаундера → постоянные лиды',
+        float1: 'ИИ сканирует тренды по аудио каждый час',
+        float2: 'Продюсеры вручную отбирают и шлифуют',
+        visualsTitle: 'Как выглядят дропы',
+        visualsLead: 'Минимум текста, максимум визуала. Можно снимать сразу.',
+        moodTitle: 'Мудборд трендов',
+        mood1: 'Треки, что растут',
+        mood2: 'Списки кадров одним взглядом',
+        mood3: 'Быстрые подписи и хуки',
+        mood4: 'Превью под площадки',
+        visuals1: 'Готовые хуки, ракурсы и подписи для съёмки.',
+        visuals2: 'Оценка ИИ + ручная правка — без воды.',
+        visuals3: 'Сториборды под телефон, снимаете за 20 минут.',
+        visualsChip: 'Сэмпл дропа',
+        visualsChip2: 'Для неспециалистов',
+        outcomeTitle: 'Почему оформляют подписку',
+        outcomeLead: 'Быстрые выгоды. Коротко и по делу.',
+        outcome1: 'Идеи по подписке — ежедневно или еженедельно.',
+        outcome2: 'Посты как у продакшена — хуки, тексты, сценарии.',
+        outcome3: 'Всегда раньше — отправляем то, что выстрелит.',
+        outcome4: '20 минут на съёмку — всё под телефон.',
+        whoTitle: 'Кому подойдёт',
+        whoLead: 'Для креаторов и небольших команд, кому нужен рост без найма SMM.',
+        who1: 'Новички-креаторы, которым нужна структура',
+        who1Desc: 'Понятные хуки, чтобы начать постить стабильно.',
+        who2: 'Небольшие бренды и магазины',
+        who2Desc: 'Идеи, превращающие просмотр в покупку.',
+        who3: 'Фаундеры и эксперты',
+        who3Desc: 'Тренды для экспертизы без агентства.',
+        who4: 'Локальный бизнес',
+        who4Desc: 'Съёмки на телефон, которые показывают услуги.',
+        growthTitle: 'Примеры роста',
+        growthLead: 'До → после. Публикуете дропы — видите рост.',
+        followers: 'Подписчики',
+        views: 'Просмотры в месяц',
+        growthNote: 'Бьюти, фитнес, DTC. Сила роста зависит от вас.',
+        howTitle: 'Как работает подписка',
+        howLead: 'Пять коротких шагов от подписки до постинга.',
+        step1Title: 'Оформляете подписку',
+        step1Desc: 'Выбираете еженедельные или ежедневные выдачи под нишу.',
+        step2Title: 'ИИ сканирует, люди проверяют',
+        step2Desc: 'ИИ считает, продюсеры отбирают.',
+        step3Title: 'Получаете готовые идеи',
+        step3Desc: 'Хуки, тексты, превью и ракурсы в одном пакете.',
+        step4Title: 'Снимаете на телефон',
+        step4Desc: 'Съёмка за 20 минут на телефон.',
+        step5Title: 'Растёте стабильно',
+        step5Desc: 'Правим следующую выдачу по вашим победам.',
+        credBadge: 'Продакшн из США',
+        credTitle: 'Почему нам верят',
+        credLead: 'Реальные продюсеры + ИИ. Никаких ботов и повторов.',
+        cred1: 'Идеи курируют продюсеры. Без повторов.',
+        cred2: '10+ лет в видео. Руководство из США.',
+        cred3: 'Цифры в кейсах — покажем по запросу.',
+        cred4: 'Сайт нашего продакшена →',
+        offerTitle: 'Тарифы подписки',
+        offerCopy: 'Месячная подписка. Отмена в любой момент. Дешевле, чем нанять SMM.',
+        tagLite: 'Старт',
+        planLite: 'Pulse доступ',
+        priceLite: '$89 / мес',
+        lite1: 'Еженедельные тренды по нише',
+        lite2: 'Скрипты, тексты и хэштеги',
+        lite3: 'Превью под площадки',
+        offerSecondary: 'Получить доступ',
+        tagBest: 'Лучший выбор',
+        planPro: 'Creator lift',
+        pricePro: '$219 / мес',
+        pro1: 'Ежедневный радар + алерты',
+        pro2: 'Сториборд и правки монтажа',
+        pro3: 'Календарь и оптимизация постинга',
+        offerCta: 'Созвон',
+        offerHint: 'Ограничено мест',
+        faqTitle: 'FAQ',
+        faq1Q: 'Подойдёт новичкам?',
+        faq1A: 'Да. Простые сценарии и ракурсы под телефон.',
+        faq2Q: 'Нужны скиллы монтажа?',
+        faq2A: 'Базового редактирования хватит. Даём список кадров и тексты.',
+        faq3Q: 'Это реальные тренды?',
+        faq3A: 'Да. Живые данные + ручная проверка, без паков.',
+        faq4Q: 'Как часто приходят идеи?',
+        faq4A: 'Еженедельно или ежедневно. Помесячно, отмена в любой момент.',
+        finalTitle: 'Хотите идеи раньше остальных?',
+        finalCopy: 'Напишите нишу. Пришлём пример тренда и время старта.',
+        finalCta: 'Запустить подписку',
+        finalAlt: 'WhatsApp',
+        leadBadge: 'Лист ожидания',
+        leadTitle: 'Созвон с продюсером',
+        leadCopy: 'Оставьте нишу и WhatsApp — пришлём пример и время старта.',
+        leadName: 'Имя',
+        leadPhone: 'WhatsApp',
+        leadNiche: 'Ниша',
+        leadCta: 'Отправить в WhatsApp',
+        leadNote: 'Отвечаем до 24 часов. Никакого спама.',
+        visualCTA: 'Смотреть кейсы',
+        visualCTACopy: 'Короткий тур по ленте трендов и свежим победам.',
+        visualCtaBtn: 'Смотреть примеры',
+        visualCtaCall: 'Созвон'
+      }
+    };
+
+    const langButtons = document.querySelectorAll('.lang-switch button');
+    const i18nElems = document.querySelectorAll('[data-i18n]');
+    const placeholderElems = document.querySelectorAll('[data-i18n-placeholder]');
+
+    langButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.dataset.lang;
+        setLanguage(lang);
+        langButtons.forEach(b => b.classList.toggle('active', b === btn));
+      });
+    });
+
+    function setLanguage(lang) {
+      const dict = translations[lang] || translations.en;
+      i18nElems.forEach(el => {
+        const key = el.dataset.i18n;
+        if (dict[key]) el.textContent = dict[key];
+      });
+      placeholderElems.forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        if (dict[key]) el.placeholder = dict[key];
+      });
+      document.documentElement.lang = lang;
+    }
+
+    setLanguage('en');
+
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const button = item.querySelector('.faq-question');
+      button.addEventListener('click', () => {
+        const isActive = item.classList.toggle('active');
+        button.setAttribute('aria-expanded', isActive);
+      });
+    });
+
+    document.querySelectorAll('[data-scroll]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = document.querySelector(btn.dataset.scroll);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    const leadForm = document.getElementById('lead-form');
+
+    leadForm?.addEventListener('submit', event => {
+      event.preventDefault();
+      const formData = new FormData(leadForm);
+      const name = formData.get('name')?.toString().trim();
+      const phone = formData.get('phone')?.toString().trim();
+      const niche = formData.get('niche')?.toString().trim();
+
+      const intro = translations[document.documentElement.lang]?.leadBadge || 'WhatsApp signup';
+      const parts = [intro];
+      if (name) parts.push(`Name: ${name}`);
+      if (phone) parts.push(`WhatsApp: ${phone}`);
+      if (niche) parts.push(`Niche: ${niche}`);
+
+      const text = parts.join('\n');
+      const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    });
+
+    const animatedElems = document.querySelectorAll('.animate');
+    const numberTargets = document.querySelectorAll('[data-animate]');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.dataset.animate) {
+            animateNumber(entry.target);
+          }
+          entry.target.querySelectorAll('[data-animate]').forEach(el => animateNumber(el));
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    animatedElems.forEach(el => observer.observe(el));
+    numberTargets.forEach(el => observer.observe(el));
+
+    function animateNumber(el) {
+      const target = parseInt(el.dataset.animate, 10);
+      if (Number.isNaN(target)) return;
+      let current = 0;
+      const increment = Math.max(1, Math.round(target / 80));
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = formatNumber(current);
+      }, 12);
+    }
+
+    function formatNumber(num) {
+      return num >= 1000 ? new Intl.NumberFormat().format(num) : `${num}`;
+    }
+  </script>
+</body>
+</html>
