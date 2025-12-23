@@ -9,17 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f6f8fb;
-      --bg-2: #ecf1ff;
-      --card: rgba(255, 255, 255, 0.85);
-      --text: #0f172a;
-      --muted: #475569;
-      --accent: #38f391;
-      --accent-strong: #12e37c;
-      --border: #e2e8f0;
-      --shadow: 0 25px 80px rgba(15, 23, 42, 0.08);
+      --bg: #f7f9fb;
+      --bg-2: #eef3ff;
+      --card: rgba(255, 255, 255, 0.92);
+      --text: #0b1a2d;
+      --muted: #4b5563;
+      --accent: #0ad982;
+      --accent-strong: #0fcf78;
+      --border: #e5e7eb;
+      --shadow: 0 18px 60px rgba(15, 23, 42, 0.07);
       --radius: 18px;
-      --glow: 0 20px 50px rgba(56, 243, 145, 0.35);
+      --glow: 0 20px 50px rgba(15, 207, 120, 0.2);
       --blur: 16px;
       --transition: all 0.28s ease;
     }
@@ -29,9 +29,7 @@
     body {
       margin: 0;
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: radial-gradient(circle at 20% 10%, rgba(56, 243, 145, 0.08), transparent 32%),
-                  radial-gradient(circle at 80% 0%, rgba(96, 112, 255, 0.08), transparent 30%),
-                  linear-gradient(180deg, #f9fbff 0%, #f3f7ff 55%, #f9fbff 100%);
+      background: linear-gradient(180deg, #fdfefe 0%, var(--bg) 40%, #fdfefe 100%);
       color: var(--text);
       line-height: 1.6;
       letter-spacing: -0.01em;
@@ -54,8 +52,8 @@
       top: 0;
       z-index: 40;
       backdrop-filter: blur(var(--blur));
-      background: rgba(246, 248, 251, 0.78);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.8);
     }
 
     .nav {
@@ -132,33 +130,33 @@
 
     .hero-visual {
       position: relative;
-      background: linear-gradient(145deg, #0c172a, #0e2037);
+      background: linear-gradient(180deg, #ffffff 0%, #f2f5fb 100%);
       border-radius: 24px;
       padding: 18px;
       overflow: hidden;
-      box-shadow: 0 22px 60px rgba(7, 15, 30, 0.45);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #e8f7ff;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      color: #0f172a;
       min-height: 360px;
-      animation: floaty 8s ease-in-out infinite;
+      animation: floaty 10s ease-in-out infinite;
     }
 
-    .glass-tag { position: absolute; top: 18px; right: 18px; padding: 8px 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; backdrop-filter: blur(8px); font-weight: 700; }
+    .glass-tag { position: absolute; top: 18px; right: 18px; padding: 8px 12px; background: rgba(255,255,255,0.8); border: 1px solid rgba(226,232,240,0.9); border-radius: 12px; backdrop-filter: blur(8px); font-weight: 800; color: var(--text); box-shadow: var(--shadow); }
 
     .visual-grid { display: grid; gap: 12px; position: relative; }
-    .trend-card { background: rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 14px; display: grid; gap: 10px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
+    .trend-card { background: #fff; border-radius: 16px; padding: 14px; display: grid; gap: 10px; box-shadow: var(--shadow); border: 1px solid var(--border); }
     .trend-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .trend-title { font-weight: 800; }
     .trend-items { display: grid; gap: 10px; }
-    .trend-item { padding: 10px; border-radius: 12px; background: rgba(0,0,0,0.18); display: flex; justify-content: space-between; align-items: center; }
-    .trend-item strong { color: #fff; }
-    .trend-item span { color: #a3b8d6; font-weight: 600; }
+    .trend-item { padding: 10px; border-radius: 12px; background: #f2f5fb; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); }
+    .trend-item strong { color: var(--text); }
+    .trend-item span { color: #0ea371; font-weight: 800; }
 
     .video-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
-    .video-card { background: rgba(255,255,255,0.07); border-radius: 14px; padding: 10px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); display: grid; gap: 8px; }
+    .video-card { background: #fff; border-radius: 14px; padding: 10px; box-shadow: var(--shadow); display: grid; gap: 8px; border: 1px solid var(--border); }
     .thumb { border-radius: 12px; height: 90px; position: relative; overflow: hidden; background-size: cover; background-position: center; }
-    .thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%); }
-    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: rgba(56, 243, 145, 0.16); color: #8effc4; font-weight: 700; font-size: 13px; }
+    .thumb::after { content: attr(data-label); position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%); color: #fff; display: grid; place-items: center; font-weight: 800; letter-spacing: -0.01em; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: rgba(15, 207, 120, 0.15); color: #0d9e68; font-weight: 800; font-size: 13px; }
 
     .floating { position: absolute; inset: auto 12px 14px auto; display: flex; flex-direction: column; gap: 10px; }
     .float-card { background: rgba(255,255,255,0.12); border-radius: 14px; padding: 12px; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.16); animation: floaty 6s ease-in-out infinite alternate; }
@@ -343,17 +341,17 @@
 
           <div class="video-strip">
             <div class="video-card">
-              <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80');"></div>
+              <div class="thumb" data-label="Placeholder" style="background: radial-gradient(circle at 20% 20%, rgba(15,207,120,0.25), transparent 50%), linear-gradient(135deg, #cfd8e3, #eef1f7);"></div>
               <div class="pill">+360% growth</div>
               <div class="muted-light" data-i18n="vid1">Beginner creator → steady views</div>
             </div>
             <div class="video-card">
-              <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=800&q=80');"></div>
+              <div class="thumb" data-label="Placeholder" style="background: radial-gradient(circle at 80% 20%, rgba(14,163,113,0.25), transparent 50%), linear-gradient(135deg, #dce5f2, #f6f8fb);"></div>
               <div class="pill">+1.1M views</div>
               <div class="muted-light" data-i18n="vid2">Local brand → viral weekend</div>
             </div>
             <div class="video-card">
-              <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80');"></div>
+              <div class="thumb" data-label="Placeholder" style="background: radial-gradient(circle at 30% 10%, rgba(10,217,130,0.22), transparent 50%), linear-gradient(135deg, #e1e8f5, #f7f9fd);"></div>
               <div class="pill">+920% lift</div>
               <div class="muted-light" data-i18n="vid3">Founder reels → consistent leads</div>
             </div>
@@ -371,21 +369,21 @@
       <p class="lead" data-i18n="visualsLead">Real snapshots. Minimal text. See the ideas before you subscribe.</p>
       <div class="photo-grid">
         <div class="photo-card">
-          <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1200&q=80" alt="Creator reviewing trend ideas" loading="lazy" />
+          <div class="thumb" data-label="Placeholder" style="height:100%; border-radius:0; background: linear-gradient(135deg, #dbe5f2, #f7f9fd);"></div>
           <div class="photo-overlay">
             <span data-i18n="visuals1">Ready-to-film hooks with angles and captions.</span>
             <span class="photo-chip">IG · TikTok · Shorts</span>
           </div>
         </div>
         <div class="photo-card">
-          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80" alt="Curator editing trend board" loading="lazy" />
+          <div class="thumb" data-label="Placeholder" style="height:100%; border-radius:0; background: linear-gradient(135deg, #e2eaf6, #fdfefe);"></div>
           <div class="photo-overlay">
             <span data-i18n="visuals2">AI scores + human polish = zero fluff.</span>
             <span class="photo-chip" data-i18n="visualsChip">Trend drop sample</span>
           </div>
         </div>
         <div class="photo-card">
-          <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80" alt="Small business filming content" loading="lazy" />
+          <div class="thumb" data-label="Placeholder" style="height:100%; border-radius:0; background: linear-gradient(135deg, #d8e3f1, #f6f8fb);"></div>
           <div class="photo-overlay">
             <span data-i18n="visuals3">Phone-first storyboards you can film in 20 minutes.</span>
             <span class="photo-chip" data-i18n="visualsChip2">Made for non-pros</span>
@@ -393,16 +391,16 @@
         </div>
       </div>
       <div class="moodboard" aria-label="Trend moodboard">
-        <div class="mood-tile" style="background-image:url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80');">
+        <div class="mood-tile" style="background: radial-gradient(circle at 20% 20%, rgba(10,217,130,0.28), transparent 50%), linear-gradient(135deg, #e3ebf6, #f7f9fd);">
           <span class="mood-label" data-i18n="mood1">Trending audio picks</span>
         </div>
-        <div class="mood-tile" style="background-image:url('https://images.unsplash.com/photo-1555431189-0fabf2667795?auto=format&fit=crop&w=900&q=80');">
+        <div class="mood-tile" style="background: radial-gradient(circle at 80% 20%, rgba(15,207,120,0.25), transparent 50%), linear-gradient(135deg, #dfe7f3, #f6f8fb);">
           <span class="mood-label" data-i18n="mood2">Shot lists in one glance</span>
         </div>
-        <div class="mood-tile" style="background-image:url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80');">
+        <div class="mood-tile" style="background: radial-gradient(circle at 30% 10%, rgba(14,163,113,0.25), transparent 50%), linear-gradient(135deg, #d9e4f3, #f7f9fd);">
           <span class="mood-label" data-i18n="mood3">Quick captions & hooks</span>
         </div>
-        <div class="mood-tile" style="background-image:url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80');">
+        <div class="mood-tile" style="background: radial-gradient(circle at 60% 30%, rgba(10,217,130,0.22), transparent 50%), linear-gradient(135deg, #dfe8f4, #fdfefe);">
           <span class="mood-label" data-i18n="mood4">Platform-ready thumbs</span>
         </div>
       </div>
@@ -629,9 +627,9 @@
         menuFaq: 'FAQ',
         menuWho: 'Who it\'s for',
         navCta: 'Start subscription',
-        eyebrow: 'Real-time trend crew: AI + humans',
-        headline: 'Get viral video ideas every week. No SMM needed.',
-        subtitle: 'Monthly subscription that sends ready-to-film trends from AI + real producers.',
+        eyebrow: 'Subscription for viral ideas',
+        headline: 'Drive growth with real-time social trends.',
+        subtitle: 'AI + producers deliver ready-to-film ideas for creators and small brands.',
         chip1: 'Subscription service',
         chip2: 'AI + human curation',
         chip3: 'Ready in 20 minutes',
@@ -655,8 +653,8 @@
         vid3: 'Founder reels → consistent leads',
         float1: 'AI scans trending audio hourly',
         float2: 'Producers hand-pick and polish',
-        visualsTitle: 'What the drops look like',
-        visualsLead: 'Real snapshots. Minimal text. See the ideas before you subscribe.',
+        visualsTitle: 'What drops look like',
+        visualsLead: 'Minimal, visual-first previews you can film fast.',
         moodTitle: 'Trend moodboard',
         mood1: 'Trending audio picks',
         mood2: 'Shot lists in one glance',
@@ -758,9 +756,9 @@
         menuFaq: 'FAQ',
         menuWho: 'Для кого',
         navCta: 'Запустить подписку',
-        eyebrow: 'Тренд-команда в реальном времени: ИИ + люди',
-        headline: 'Получайте идеи вирусных роликов каждую неделю. Без SMM-специалиста.',
-        subtitle: 'ИИ и продюсеры присылают готовые тренды по подписке.',
+        eyebrow: 'Подписка на вирусные идеи',
+        headline: 'Рост за счёт трендов в реальном времени.',
+        subtitle: 'ИИ и продюсеры присылают готовые идеи для креаторов и брендов.',
         chip1: 'Сервис по подписке',
         chip2: 'ИИ + ручная модерация',
         chip3: 'Готово за 20 минут',
@@ -785,7 +783,7 @@
         float1: 'ИИ сканирует тренды по аудио каждый час',
         float2: 'Продюсеры вручную отбирают и шлифуют',
         visualsTitle: 'Как выглядят дропы',
-        visualsLead: 'Реальные кадры, минимум текста. Видите идеи до оплаты.',
+        visualsLead: 'Минимум текста, максимум визуала. Можно снимать сразу.',
         moodTitle: 'Мудборд трендов',
         mood1: 'Треки, что растут',
         mood2: 'Списки кадров одним взглядом',
